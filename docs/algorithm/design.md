@@ -18,7 +18,7 @@
   - list.splice(list.begin(), list, it): 将it位置的元素移动到list的表头
 - map.find(key) 返回指向该元素的map迭代器，不存在则为map.end()
 
-```CPP
+```cpp
 class LRUCache {
 public:
     LRUCache(int capacity) {
@@ -60,7 +60,7 @@ private:
 
 自己定义双向列表的节点，实现删除尾节点、向头节点添加元素、移动元素到头节点等函数
 
-```CPP
+```cpp
 struct Node {
     int key;
     int value;
