@@ -3,6 +3,8 @@
 ## 297. Serialize and Deserialize Binary Tree
 > :red_circle:
 
+将二叉树序列化为字符串，并反序列化为二叉树
+
 ### 思路
 考察二叉树的遍历与构造。在记录空子节点的情况下，前序、后序、层序遍历均可序列化并反序列化
 

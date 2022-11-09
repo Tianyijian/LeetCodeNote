@@ -2,6 +2,7 @@
   * [双指针链表](algorithm/pointerlist.md)
   * [双指针数组](algorithm/pointerarray.md)
   * [二叉树](algorithm/binarytree.md)
+  * [单调栈](algorithm/monotonicstack.md)
   * [设计数据结构](algorithm/design.md)
 * 题解
   * [0000~1000](solutions/1000.md)
