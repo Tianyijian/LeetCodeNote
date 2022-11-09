@@ -1,6 +1,6 @@
 # 设计数据结构
 
-## 146. LRU Cache
+## 0146. LRU Cache
 > :orange_circle:
 
 设计数据结构实现LRU缓存

@@ -6,11 +6,13 @@
 
 邻接表占用空间少，但无法快速判断节点是否相邻
 
-DFS遍历：onPath数组记录当前节点，有环图需要visited数组辅助，防止递归重复遍历同一节点而死循环
+DFS遍历：onPath数组记录当前路径上的节点，有环图需要visited数组辅助，防止递归重复遍历同一节点而死循环
 
-- 拓扑排序（Topological Sorting），把一幅图拉平，所有箭头方向一致。有向无环图一定可以拓扑排序，有环图不可以。
+BFS遍历：利用队列遍历，indegree数组记录节点的入度，可实现环检测以及拓扑排序
 
-## 797. All Paths From Source to Target
+拓扑排序（Topological Sorting）：把一幅图拉平，所有箭头方向一致。有向无环图一定可以拓扑排序，有环图不可以
+
+## 0797. All Paths From Source to Target
 
 > :orange_circle:
 
@@ -48,7 +50,7 @@ private:
 };
 ```
 
-## 207. Course Schedule
+## 0207. Course Schedule
 
 > :orange_circle:
 
@@ -135,7 +137,7 @@ public:
 
 
 
-## 210. Course Schedule II
+## 0210. Course Schedule II
 
 > :orange_circle:
 
@@ -143,7 +145,8 @@ public:
 
 ### 方法一
 
-- DFS后续遍历的结果进行翻转即为拓扑排序，后续遍历是因为一个任务必须等到它依赖的所有任务都完成之后才能开始执行。
+- DFS环检测算法，后续遍历的结果进行翻转即为拓扑排序
+- 后续遍历是因为一个任务必须等到它依赖的所有任务都完成之后才能开始执行
 
 ```cpp
 class Solution {
@@ -184,7 +187,7 @@ private:
 
 ### 方法二
 
-- BFS中队列的遍历节点顺序即为拓扑排序
+- BFS的环检测算法中，队列的节点遍历顺序即为拓扑排序
 
 ```cpp
 class Solution {

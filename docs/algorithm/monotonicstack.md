@@ -6,7 +6,7 @@
 - 以空间换时间，利用栈记录元素的大小顺序，时间O(n)，空间O(n)
 - 从栈底到栈顶可以递减或递增，根据当前元素与栈顶元素的大小情况做出选择
 
-## 739. Daily Temperatures
+## 0739. Daily Temperatures
 
 > :orange_circle:
 
@@ -35,7 +35,7 @@ public:
 };
 ```
 
-## 496. Next Greater Element I
+## 0496. Next Greater Element I
 
 > :green_circle:
 

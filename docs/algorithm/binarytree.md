@@ -1,6 +1,6 @@
 # 二叉树
 
-## 297. Serialize and Deserialize Binary Tree
+## 0297. Serialize and Deserialize Binary Tree
 > :red_circle:
 
 将二叉树序列化为字符串，并反序列化为二叉树
