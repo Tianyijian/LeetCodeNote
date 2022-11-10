@@ -7,7 +7,7 @@
 
 非负数组，先进行n-1个操作，`nums[i]==nums[i+1]时，nums[i]*2，nums[i+1]=0`，之后将所有的零移动到数组最后
 
-相似题目：283. Move Zeroes
+相似题目：0283. Move Zeroes
 
 ### 方法
 
@@ -40,9 +40,62 @@ public:
 
 给一维数组及整数k，找到长度为k的子数组，且元素各不相同，求最大的子数组元素和，没有满足条件的子数组返回0
 
-### 方法
+相似题目：0003. Longest Substring Without Repeating Characters
+### 方法一
 
-- 滑动窗口，维护固定大小为K的窗口，当满足元素各不相同时，记录最大元素和
+- 滑动窗口，哈希表记录每个字符出现的最后位置+1（start从此处开始，窗口内没有重复元素）
+- 根据当前字符移动滑动窗口的起始位置，确保窗口内一定没有重复字符
+- 同时维护固定大小为K的窗口，左开右闭区间[start, end)，记录最大元素和。T: O(n), S: O(n)
+
+```cpp
+class Solution {
+public:
+    long long maximumSubarraySum(vector<int>& nums, int k) {
+        long long sum = 0, maxSum = 0;
+        int start = 0, end = 0;
+        int hash[100001] = {0};
+        while (end < nums.size()) {
+            int num = nums[end];
+            end++;
+            sum += num;
+            while (start < hash[num]) sum -= nums[start++];
+            if (end - start == k) {
+                maxSum = max(maxSum, sum);
+                sum -= nums[start++];
+            }
+            hash[num] = end;
+        }
+        return maxSum;
+    }
+};
+```
+
+### 方法二
+
+- 滑动窗口，维护固定大小为K的窗口，左开右闭区间(end-k, end]
+- 哈希表记录没有重复元素的起始位置，即每个元素的下一个位置，初始化为0。维护窗户的没有重复元素的起始位置dupStart
+- dupStart小于等于窗口的起始位置时（dupStart<=end-k+1），说明没有重复元素，可以记录结果
+- 注意end=k-1时，此时窗口元素数为k，窗口区间为(-1, k-1]，dupStart初始化为0没问题，不会遗漏。如例子`[1,2,2] k=2`
+- 与方法一的性能一样，思路不同，省略了根据dupStart缩减窗口的过程，代码更简洁。T: O(n), S: O(n)
+
+```cpp
+class Solution {
+public:
+    long long maximumSubarraySum(vector<int>& nums, int k) {
+        long long sum = 0, maxSum = 0;
+        int dupStart = 0;
+        int hash[100001] = {0};
+        for (int end = 0; end < nums.size(); end++) {
+            sum += nums[end];
+            if (end >= k) sum -= nums[end - k];
+            dupStart = max(dupStart, hash[nums[end]]);
+            if (dupStart <= end - k + 1) maxSum = max(maxSum, sum);
+            hash[nums[end]] = end + 1;
+        }
+        return maxSum;
+    }
+};
+```
 
 ## 2462. Total Cost to Hire K Workers
 
