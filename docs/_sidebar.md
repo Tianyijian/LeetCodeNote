@@ -2,11 +2,15 @@
   * [双指针链表](algorithm/pointerlist.md)
   * [双指针数组](algorithm/pointerarray.md)
   * [滑动窗口](algorithm/slidingwindow.md)
-  * [前缀和数组](algorithm/prefixsum.md)
+  * [哈希表](algorithm/hashtable.md)
   * [二叉树](algorithm/binarytree.md)
-  * [单调栈](algorithm/monotonicstack.md)
   * [图](algorithm/graph.md)
   * [设计数据结构](algorithm/design.md)
+* 专题
+  * [前缀和数组](topic/prefixsum.md)
+  * [单调栈](topic/monotonicstack.md)
+  * [区间问题](topic/intervals.md)
+  * [nSum问题](topic/nsum.md)
 * 周赛
   * [Weekly Contest 318](contest/weekly318.md)
 * 题解
