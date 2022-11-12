@@ -2,7 +2,7 @@
 
 ## 0056. Merge Intervals
 
-> :orange_ciircle:
+> :orange_circle:
 
 给定区间数组，合并其中的重叠区间，返回合并后的区间，其是不重叠的且覆盖所有的原始区间
 
