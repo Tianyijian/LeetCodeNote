@@ -1,5 +1,117 @@
 # 双指针解决链表问题
 
+## 0206. Reverse Linked List
+
+> :green_circle:
+
+### 方法一
+
+- 采用双指针法，迭代遍历。T: O(n), S: O(1)
+
+```cpp
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* pre = NULL;
+        ListNode* cur = head;
+        ListNode* temp;
+        while (cur) {
+            temp = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = temp;
+        }
+        return pre;
+    }
+};
+```
+
+### 方法二
+
+- 递归逆序链表，从前往后反转指针，类似双指针解法。T: O(n), S: O(1)
+
+```cpp
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        return reverse(NULL, head);
+    }
+private:
+    ListNode* reverse(ListNode* pre, ListNode* cur) {
+        if (cur == NULL) return pre;
+        ListNode* temp = cur->next;
+        cur->next = pre;
+        return reverse(cur, temp);
+    }
+};
+```
+### 方法三
+
+* 递归逆序链表，从后往前反转指针。T: O(n), S: O(1)
+* 注意始终返回最后一个节点，且直接可通过head->next->next=head进行翻转
+
+<!-- tabs:start -->
+####**First**
+
+```cpp
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (!head || !head->next) return head;
+        ListNode* last = reverseList(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return last;
+    }
+};
+```
+####**Second**
+```cpp
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (!head || !head->next) return head;
+        ListNode* node = reverseList(head->next);
+        ListNode* temp = node;
+        while (temp->next) temp = temp->next;
+        temp->next = head;
+        head->next = NULL;
+        return node;
+    }
+};
+```
+<!-- tabs:end -->
+
+### 方法四
+
+- 设立新数组，将数据取出，逆序构建链表，浪费时间和内存。T: O(n), S: O(n)
+
+```cpp
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == NULL) return head;
+        // Get data to a array
+        vector<int> data;
+        ListNode* cur = head;
+        while (cur != nullptr) {
+            data.push_back(cur -> val);
+            cur = cur -> next;
+        }
+        // Create reverse list
+        int size = data.size();
+        ListNode* res = new ListNode(data[size - 1]);
+        cur = res;
+        for (int i = size - 2; i >= 0; i--) {
+            ListNode* tmp = new ListNode(data[i]);
+            cur -> next = tmp;
+            cur = tmp;
+        }
+        return res;
+    }
+};
+```
+
 ## 0025. Reverse Nodes in k-Group
 
 > :red_circle:
