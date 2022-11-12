@@ -1,6 +1,33 @@
 # 二叉树
 
+## 0236. Lowest Common Ancestor of a Binary Tree
+
+> :orange_circle:
+
+给定二叉树，返回树中两个节点的最近公共祖先（lowest common ancestor, LCA）
+
+### 方法
+
+* 从底向上遍历：二叉树后序遍历可实现（回溯）
+* 找到一个节点，左子树有节点p或q，右子树有节点q或p，找到即返回，否则返回空
+* 层层返回找到的节点
+
+```cpp
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (root == NULL || root == p || root == q) return root;
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+        if (left && right) return root;
+        if (left == NULL) return right;
+        return left; 
+    }
+};
+```
+
 ## 0297. Serialize and Deserialize Binary Tree
+
 > :red_circle:
 
 将二叉树序列化为字符串，并反序列化为二叉树

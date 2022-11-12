@@ -7,6 +7,7 @@
   * [图](algorithm/graph.md)
   * [设计数据结构](algorithm/design.md)
 * 专题
+  * [排序](topic/sort.md)
   * [前缀和数组](topic/prefixsum.md)
   * [单调栈](topic/monotonicstack.md)
   * [区间问题](topic/intervals.md)
