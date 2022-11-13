@@ -1,4 +1,6 @@
 # Biweekly Contest 91
+> 2022.11.12
+
 ## 2465. Number of Distinct Averages
 
 > :green_circle:

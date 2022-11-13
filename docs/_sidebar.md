@@ -16,6 +16,8 @@
 * 周赛
   * [Weekly Contest 318](contest/weekly318.md)
   * [Biweekly Contest 91](contest/biweekly91.md)
+  * [Weekly Contest 319](contest/weekly319.md)
+
 * 题解
   * [0000~1000](solutions/1000.md)
   * [1000~2000](solutions/2000.md)
