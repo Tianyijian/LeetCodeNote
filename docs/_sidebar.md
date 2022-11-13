@@ -2,6 +2,7 @@
   * [双指针链表](algorithm/pointerlist.md)
   * [双指针数组](algorithm/pointerarray.md)
   * [滑动窗口](algorithm/slidingwindow.md)
+  * [字符串](algorithm/string.md)
   * [哈希表](algorithm/hashtable.md)
   * [二叉树](algorithm/binarytree.md)
   * [图](algorithm/graph.md)
