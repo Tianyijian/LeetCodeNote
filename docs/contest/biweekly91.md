@@ -68,6 +68,90 @@ public:
 
 > :orange_circle:
 
+有n个节点的无向树，每个节点都有奖励。Alice从根节点0出发到达某一叶子节点，Bob从bob节点出发到达根节点0，两人同时移动，到达某个节点时，获得该节点奖励（奖励变为0）。两者同时到达某个节点，则平分奖励。求Alice能获得的最大奖励
+
+### 方法
+
+- Bob的路径是固定的，先DFS找出Bob的路径。然后DFS模拟Alice前进的路径，每走一步Bob也同时移动一步
+- 同时到达某个节点奖励平分，更新得到的奖励，将到达过的节点奖励设为0。Alice达到叶结点时，更新最大的奖励
+
+```cpp
+class Solution {
+public:
+    int mostProfitablePath(vector<vector<int>>& edges, int bob, vector<int>& amount) {
+        int n = amount.size();
+        vector<vector<int>> graph(n);
+        for (auto edge : edges) {
+            graph[edge[0]].push_back(edge[1]);
+            graph[edge[1]].push_back(edge[0]);
+        }
+        // DFS: find the fixed path to node 0 of Bob
+        visited = vector<bool>(n, false);
+        dfsBob(graph, bob, 0);
+        // DFS: find the max income of Alice
+        visited = vector<bool>(n, false);
+        dfsAlice(graph, 0, 0, amount);
+        return maxIncome;
+        
+    }
+private:
+    vector<int> bobPath;
+    vector<bool> visited;
+    bool dfsBob(vector<vector<int>>& graph, int cur, int target) {
+        if (cur == target) {
+            bobPath.push_back(cur);
+            return true;
+        }
+        visited[cur] = true;
+        bobPath.push_back(cur);
+        for (int v : graph[cur]) {
+            if (!visited[v] && dfsBob(graph, v, target)) return true;
+        }
+        visited[cur] = false;
+        bobPath.pop_back();
+        return false;
+    }
+    
+    vector<int> res;
+    int maxIncome = INT_MIN;
+    int pathIncome = 0;
+    void dfsAlice(vector<vector<int>>& graph, int cur, int step, vector<int>& amount) {
+        // Detemine if cur is a leaf
+        bool leaf = true;
+        for (int i = 0; i < graph[cur].size(); i++) {
+            if (!visited[graph[cur][i]]) leaf = false;
+        }
+        if (leaf) {
+            pathIncome += amount[cur];
+            maxIncome = max(pathIncome, maxIncome);
+            pathIncome -= amount[cur];
+            return;
+        }
+        // Update income and amount by location of Alice and Bob
+        visited[cur] = true;
+        int curIncome = amount[cur];
+        int curOldAmount = amount[cur];
+        int bob, bobOldAmount;
+        if (step < bobPath.size()) {
+            bob = bobPath[step];
+            if (bob == cur) curIncome /= 2;
+            bobOldAmount = amount[bob];
+            amount[bob] = 0;
+        }
+        pathIncome += curIncome;
+        amount[cur] = 0;
+        // Move to next step
+        for (int v : graph[cur]) {
+            if (!visited[v]) dfsAlice(graph, v, step + 1, amount);
+        }
+        visited[cur] = false;
+        pathIncome -= curIncome;
+        amount[cur] = curOldAmount;
+        if (step < bobPath.size()) amount[bob] = bobOldAmount;
+    }  
+};
+```
+
 ## 2468. Split Message Based on Limit
 
 > :red_circle:

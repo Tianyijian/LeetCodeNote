@@ -173,9 +173,10 @@ public:
 
 在2维平面，根据给定的坐标放置n个石头，一个石头与其它石头同行或同列，可以将该石头移除，返回可以移除的最大数量的石头
 
-### 方法
+### 方法一
 
-- 并查集，将同行或同列的石头连接到一起，每个连通分量剩余一个石头，最大移除数=总石头数-连通分量数
+- 并查集，将同行或同列的石头连接到一起，每个连通分量剩余一个石头，最大移除数=总石头数-连通分量数。
+- T: O(n^2logn), S: O(n)
 
 ```cpp
 class Solution {
@@ -219,6 +220,32 @@ public:
             return count;
         }
     };
+};
+```
+### 方法二
+
+- 并查集，以空间换时间，横纵坐标单独设为点，加入到并查集中，最后按石头统计连通分量个数
+- 因为横纵坐标取值范围为[0, 10000]，所以可以加上10001区分横纵坐标。T: O(nlogn), S: O(n)
+
+```cpp
+class Solution {
+public:
+    vector<int> p;
+
+    int removeStones(vector<vector<int>>& stones) {
+        int n = 10001;
+        p.resize(n << 1);
+        for (int i = 0; i < p.size(); ++i) p[i] = i;
+        for (auto& stone : stones) p[find(stone[0])] = find(stone[1] + n);
+        unordered_set<int> s;
+        for (auto& stone : stones) s.insert(find(stone[0]));
+        return stones.size() - s.size();
+    }
+
+    int find(int x) {
+        if (p[x] != x) p[x] = find(p[x]);
+        return p[x];
+    }
 };
 ```
 
