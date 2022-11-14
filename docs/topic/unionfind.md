@@ -167,3 +167,58 @@ public:
 - 并查集：不需被替换的`O`设置共同的根节点dummy，可以占据索引`m*n`
 - 将四边的O与dummy连通，利用方向数组将与边界相相连的`O`连通，剩余的`O`替换掉
 
+## 0947. Most Stones Removed with Same Row or Column
+
+> :orange_circle:
+
+在2维平面，根据给定的坐标放置n个石头，一个石头与其它石头同行或同列，可以将该石头移除，返回可以移除的最大数量的石头
+
+### 方法
+
+- 并查集，将同行或同列的石头连接到一起，每个连通分量剩余一个石头，最大移除数=总石头数-连通分量数
+
+```cpp
+class Solution {
+public:
+    int removeStones(vector<vector<int>>& stones) {
+        int n = stones.size();
+        UF* uf = new UF(n);
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
+                    uf->join(i, j);
+                }
+            }
+        }
+        return n - uf->countNum();
+    }
+
+    class UF {
+    private:
+        int count;
+        int *father;
+    public:
+        UF(int n) {
+            count = n;
+            father = new int[n];
+            for (int i = 0; i < n; i++) father[i] = i;
+        }
+        void join(int u, int v) {
+            u = find(u);
+            v = find(v);
+            if (u == v) return;
+            father[v] = u;
+            count--;
+        }
+
+        int find(int u) {
+            return father[u] == u ? u : (father[u] = find(father[u])); 
+        }
+
+        int countNum() {
+            return count;
+        }
+    };
+};
+```
+
