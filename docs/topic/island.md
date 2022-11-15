@@ -20,8 +20,7 @@
 - 写法一：使用visited数组记录岛屿的访问情况
 - 写法二：直接将四周相连的岛屿淹没为海水，DFS遇到海水时直接返回
 
-<!-- tabs: start -->
-
+<!-- tabs:start -->
 ####**First**
 
 ```cpp
@@ -89,7 +88,7 @@ private:
 };
 ```
 
-<!-- tabs: end-->
+<!-- tabs:end -->
 
 ## 1254. Number of Closed Islands
 

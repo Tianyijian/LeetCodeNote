@@ -15,6 +15,7 @@
   * [区间问题](topic/intervals.md)
   * [nSum问题](topic/nsum.md)
   * [岛屿问题](topic/island.md)
+  * [股票问题](topic/stock.md)
   * [并查集](topic/unionfind.md)
 * 周赛
   * [Weekly Contest 318](contest/weekly318.md)

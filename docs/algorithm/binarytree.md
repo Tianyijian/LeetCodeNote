@@ -299,3 +299,10 @@ public:
 };
 ```
 
+## 0098. Validate Binary Search Tree
+
+> :orange_circle:
+
+给定一个二叉树，验证其是否是二叉搜索树
+
+### 方法
