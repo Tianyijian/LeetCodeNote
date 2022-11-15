@@ -20,6 +20,8 @@
 
 - 数组无序，且有正负数，所求结果为下标，不宜采用排序加双指针的方法
 - 暴力求解需要O(n^2)，采用哈希表记录数据及其下标，寻找是否存在num2 = target - num1，并返回下标即可。T: O(n), S: O(n)
+- 判断出现map.count(key)，map.find(key) != map.end() ; 取值map.at(key), map[key]
+- 添加值 map.insert(pair<int, int>(key, value))，map[key] = value
 
 ```cpp
 class Solution {

@@ -75,6 +75,64 @@ public:
 };
 ```
 
+## 0124. Binary Tree Maximum Path Sum
+
+> :red_circle:
+
+给一个二叉树，返回最大的路径和。二叉树中的路径是相连的一系列节点（每个节点只出现一次，不一定包含根节点）
+
+### 方法一
+
+*  递归
+	*  树形DP其实包含的有递归思想，不显式定义DP数组
+	*  到达一个节点时，选择如下：加左子树或不加，加右子树或不加，左右都加是否能打败最大值
+	*  返回能继续向上的值
+```cpp
+class Solution {
+public:
+    int maxPathSum(TreeNode* root) {
+        int res = INT_MIN;
+        traversal(root, res);
+        return res;
+    }
+private:
+    int traversal(TreeNode* root, int& res) {
+        if (root == NULL) return 0;
+        int left = max(traversal(root->left, res), 0);
+        int right = max(traversal(root->right, res), 0);
+        res = max(res, root->val + left + right);
+        return max(left, right) + root->val;;
+    }
+};
+```
+
+### 方法二
+
+*  树形DP
+  *  `dp[i][0]`：该节点不可以继续向上的最大路径和，`dp[i][1]`该节点可以继续向上的最大路径和
+  *  后序遍历，先计算左右子树，再根据返回值进行处理
+  *  `dp[i][0]`：不用该节点，子节点最大的，以及用该节点做桥梁（取最大）
+  *  `dp[i][1]`：选择左边向上，还是右边向上，还是自己向上（取最大）
+
+```cpp
+class Solution {
+public:
+    int maxPathSum(TreeNode* root) {
+        vector<int> res = traversal(root);
+        return max(res[0], res[1]);
+    }
+private:
+    vector<int> traversal(TreeNode* root) {
+        if (root == NULL) return {-1001, -1001};
+        vector<int> dpLeft = traversal(root->left);
+        vector<int> dpRight = traversal(root->right);
+        int dp0 = max({dpLeft[0], dpRight[0], dpLeft[1], dpRight[1], dpLeft[1] + dpRight[1] + root->val});
+        int dp1 = max(max(dpLeft[1], dpRight[1]), 0) + root->val;
+        return {dp0, dp1};
+    }
+};
+```
+
 ## 0297. Serialize and Deserialize Binary Tree
 
 > :red_circle:
@@ -94,7 +152,7 @@ public:
 
 <!-- tabs:start -->
 
-#### **First**
+####**First**
 
 ```cpp
 class Codec {
@@ -155,7 +213,7 @@ private:
 };
 ```
 
-#### **Second**
+####**Second**
 
 ```cpp
 class Codec {
@@ -199,3 +257,45 @@ private:
 ```
 
 <!-- tabs:end -->
+
+## 0450. Delete Node in a BST
+
+> :orange_circle:
+
+给定BST和key，删除二叉搜索树中值为key的节点（每个节点的值唯一）
+
+### 方法
+
+- 依据BST的特性，找到待删除的节点，根据情况决定删除方式（删除后仍然为BST）
+- 待删除节点左子节点为空，返回右子节点；右子节点为空，返回左子节点
+- 左右子节点都不为空时，可将右子树的最左节点的值移到待删除节点
+
+```cpp
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if (root == NULL) return root;
+        if (root->val == key) {
+            if (!root->left) return root->right;
+            else if (!root->right) return root->left;
+            else {
+                TreeNode* cur = root->right;
+                TreeNode* pre = root;
+                while (cur->left) {
+                    pre = cur;
+                    cur = cur->left;
+                }
+                root->val = cur->val;
+                if (pre != root) pre->left = cur->right;
+                else root->right = cur->right;
+                delete cur;
+                return root;
+            }
+        }
+        else if (root->val > key) root->left = deleteNode(root->left, key);
+        else root->right = deleteNode(root->right, key);
+        return root;
+    }
+};
+```
+

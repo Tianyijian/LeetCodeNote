@@ -93,6 +93,7 @@ private:
 ### 方法一
 
 * 改进快速排序。快排降序，找到下标为k-1的元素。依据排好的下标与目标下标的大小，选择左右递归区间
+
 ```cpp
 class Solution {
 public:
@@ -137,6 +138,7 @@ public:
 };
 ```
 * 小顶堆：维护K个元素，greater<int>, O(nlogk)
+
 ```cpp
 class Solution {
 public:
@@ -151,7 +153,7 @@ public:
 };
 ```
 
-### 笔记
+### 拓展
 
 * 模板函数需要的比较参数是函数名，模板类需要的比较参数是类型名
   * 模板函数：sort, merge...；模板类：set, map, priority_queue...
