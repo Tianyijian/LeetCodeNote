@@ -1,5 +1,54 @@
 # 二叉树
 
+## 0222. Count Complete Tree Nodes
+
+> :orange_circle:
+
+统计完全二叉树的节点个数，要求时间复杂度少于O(n)
+
+### 方法一
+
+- 当做普通二叉树
+  * 递归法，后序遍历。时间O(n)，空间O(logn)
+  * 迭代法，层序遍历，求出节点数目总和 。时间O(n)，空间O(n)
+
+```cpp
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        if (root == NULL) return 0;
+        return 1 + countNodes(root->left) + countNodes(root->right);
+    }
+};
+```
+
+### 方法二
+
+* 完全二叉树性质
+  * 底层第h层有1~2^h-1个节点，且靠左
+  * 两种情况：满二叉树（2^树深-1），未满。情况2可以递归左右子树，直至有满二叉树
+  * 判断满二叉树：O(logn) 递归向左右遍历，两边深度一样
+  * 时间O(logn x logn)，空间O(logn)
+
+```cpp
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        if (root == NULL) return 0;
+        TreeNode* left = root->left;
+        TreeNode* right = root->right;
+        int level = 0;
+        while (left && right) {
+            left = left->left;
+            right = right->right;
+            level++;
+        }
+        if (!left && !right) return pow(2, level + 1) - 1;
+        return countNodes(root->left) + countNodes(root->right) + 1;
+    }
+};
+```
+
 ## 0236. Lowest Common Ancestor of a Binary Tree
 
 > :orange_circle:
