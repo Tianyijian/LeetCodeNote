@@ -306,3 +306,28 @@ public:
 给定一个二叉树，验证其是否是二叉搜索树
 
 ### 方法
+
+* 节点值大于左子树最大值（最右节点），小于右子树最小值（最左节点）
+* 空节点是二叉搜索树
+* 递归法
+  * 中序遍历，记录数组，判断数组是否增序
+  * 中序遍历，一直更新最大值，判断是否小于中间节点值
+  	* 最小值long long maxVal = LONG_MIN; 防止测试数据中有int最小值
+  * 中序遍历，记录前一个节点
+
+```cpp
+class Solution {
+public:
+    TreeNode* pre = NULL;
+    bool isValidBST(TreeNode* root) {
+        if (root == NULL) return true;
+        bool left = isValidBST(root->left);
+        
+        if (pre != NULL && pre->val >= root->val) return false;
+        pre = root;
+        
+        bool right = isValidBST(root->right);
+        return left && right;
+    }
+};
+```
