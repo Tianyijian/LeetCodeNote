@@ -1,5 +1,176 @@
 # 二叉树
 
+## 0144. Binary Tree Preorder Traversal
+
+> :green_circle:
+
+二叉树的前序遍历
+
+### 方法一
+
+- 递归遍历
+
+```cpp
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        traversal(root, res);
+        return res;
+    }
+private:
+    void traversal(TreeNode* node, vector<int>& vals) {
+        if (node == NULL) return;
+        vals.push_back(node->val);
+        traversal(node->left, vals);
+        traversal(node->right, vals);
+    }
+};
+```
+
+### 方法二
+
+- 迭代遍历
+
+```cpp
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> st;
+        if (root != NULL) st.push(root);
+        while (!st.empty()) {
+            TreeNode* cur = st.top();
+            st.pop();
+            res.push_back(cur->val);
+            if (cur->right) st.push(cur->right);
+            if (cur->left) st.push(cur->left);
+        }
+        return res;
+    }
+
+};
+```
+
+### 方法三
+
+- 统一迭代遍历
+
+```cpp
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> st;
+        if (root != NULL) st.push(root);
+        while (!st.empty()) {
+            TreeNode* cur = st.top();
+            st.pop();
+            if (cur != NULL) {
+                if (cur->right) st.push(cur->right);
+                if (cur->left) st.push(cur->left);
+                st.push(cur);
+                st.push(NULL);
+            } else {
+                cur = st.top();
+                st.pop();
+                res.push_back(cur->val);
+            }
+        }
+        return res;
+    }
+};
+```
+
+## 0094. Binary Tree Inorder Traversal
+
+> :green_circle:
+
+二叉树的中序遍历
+
+### 方法一
+
+- 递归遍历
+
+```cpp
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        traversal(root, res);
+        return res;
+    }
+private:
+    void traversal(TreeNode* node, vector<int>& vals) {
+        if (node == NULL) return;
+        traversal(node->left, vals);
+        vals.push_back(node->val);
+        traversal(node->right, vals);
+    }
+};
+```
+
+### 方法二
+
+- 迭代遍历：借助指针的遍历帮助访问节点，栈用来处理节点元素
+
+```cpp
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> st;
+        TreeNode* cur = root;
+        while (cur != NULL || !st.empty()) {
+            if (cur != NULL) {
+                st.push(cur);
+                cur = cur->left;
+            } else {
+                cur = st.top();
+                st.pop();
+                res.push_back(cur->val);
+                cur = cur->right;
+            }
+        }
+        return res;
+    }
+};
+```
+
+### 方法三
+
+- 统一迭代遍历：解决访问节点（遍历节点）和处理节点（将元素放进结果集）不一致的情况
+- 将访问的节点放入栈中，把要处理的节点也放入栈中但是要紧接着放入一个空指针做标记
+
+```cpp
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> st;
+        if (root != NULL) st.push(root);
+        while (!st.empty()) {
+            TreeNode* cur = st.top();
+            if (cur != NULL) {
+                st.pop();
+                if (cur->right) st.push(cur->right);
+                st.push(cur);
+                st.push(NULL);
+                if (cur->left) st.push(cur->left);
+            } else {
+                st.pop();
+                cur = st.top();
+                st.pop();
+                res.push_back(cur->val);
+            }
+        }
+        return res;
+    }
+};
+```
+
+
+
 ## 0222. Count Complete Tree Nodes
 
 > :orange_circle:
