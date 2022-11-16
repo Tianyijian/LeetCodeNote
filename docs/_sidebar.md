@@ -6,6 +6,7 @@
   * [哈希表](algorithm/hashtable.md)
   * [二叉树](algorithm/binarytree.md)
   * [动态规划](algorithm/dp.md)
+  * [回溯算法](algorithm/backtrack.md)
   * [图](algorithm/graph.md)
   * [设计数据结构](algorithm/design.md)
 * 专题
