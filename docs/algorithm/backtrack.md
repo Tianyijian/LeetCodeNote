@@ -74,3 +74,9 @@ private:
 ```
 
 <!-- tabs:end-->
+
+## 0039. Combination Sum
+
+> :orange_circle:
+
+### 方法
