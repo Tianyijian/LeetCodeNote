@@ -1,5 +1,63 @@
 # 双指针解决链表问题
 
+## 0021. Merge Two Sorted Lists
+
+> :green_circle:
+
+合并两个有序链表
+
+### 方法一
+
+*  定义新的链表节点，将list1和list2依次加上去
+
+```cpp
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* dummy = new ListNode(-1);
+        ListNode* p = dummy;
+        while (list1 && list2) {
+            if (list1->val < list2->val) {
+                p->next = list1;
+                list1 = list1->next;
+            } else {
+                p->next = list2;
+                list2 = list2->next;
+            }
+            p = p->next;
+        }
+        if (list1) p->next = list1;
+        if (list2) p->next = list2;
+        return dummy->next;
+    }
+};
+```
+### 方法二
+
+*  将list1直接加到list2上，较为麻烦
+
+```cpp
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* cur1 = new ListNode(0, list1);
+        ListNode* cur2 = new ListNode(0, list2);
+        ListNode* head = cur2;
+        while (cur1->next && cur2->next) {
+            if (cur1->next->val < cur2->next->val) {
+                ListNode* temp = cur2->next;
+                cur2->next = cur1->next;
+                cur1->next = cur1->next->next;
+                cur2->next->next = temp;
+            } 
+            cur2 = cur2->next;
+        }
+        if (cur1->next) cur2->next = cur1->next;
+        return head->next;
+    }
+};
+```
+
 ## 0206. Reverse Linked List
 
 > :green_circle:
