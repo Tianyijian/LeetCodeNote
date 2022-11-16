@@ -1,5 +1,31 @@
 # 双指针解决链表问题
 
+## 0141. Linked List Cycle
+
+> :green_circle:
+
+判断一个链表是否有环
+
+### 方法
+
+- 快慢指针，快指针每次走两步，满指针每次走一步，快指针追上慢指针，有环。T: O(n), S: O(1)
+
+```cpp
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while (fast && fast->next) {
+            fast = fast->next->next;
+            slow = slow->next;
+            if (fast == slow) return true;
+        }
+        return false;
+    }
+};
+```
+
 ## 0021. Merge Two Sorted Lists
 
 > :green_circle:
