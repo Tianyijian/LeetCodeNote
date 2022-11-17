@@ -304,6 +304,36 @@ private:
 };
 ```
 
+## 0543. Diameter of Binary Tree
+
+> :green_circle:
+
+给定二叉树，计算直径。二叉树的直径是树中两个节点的最长路径的长度，长度是两个节点间的边的数量，路径可能不经过根节点
+
+### 方法
+
+- 类似124题，二叉树最大路径和。到达一个节点时，左右都加是否能打败最大值
+- 加左子树或加右子树，该值可以继续向上加，将其返回
+
+```cpp
+class Solution {
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        diameter(root);
+        return maxRes;
+    }
+private:
+    int maxRes = 0;
+    int diameter(TreeNode* root) {
+        if (root == NULL) return -1;
+        int left = diameter(root->left);
+        int right = diameter(root->right);
+        maxRes = max(maxRes, left + right + 2);
+        return max(left, right) + 1;
+    }
+};
+```
+
 ## 0297. Serialize and Deserialize Binary Tree
 
 > :red_circle:
