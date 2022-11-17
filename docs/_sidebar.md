@@ -10,6 +10,7 @@
   * [图](algorithm/graph.md)
   * [设计数据结构](algorithm/design.md)
 * 专题
+  * [二分查找](topic/binarysearch.md)
   * [排序](topic/sort.md)
   * [前缀和数组](topic/prefixsum.md)
   * [单调栈](topic/monotonicstack.md)
