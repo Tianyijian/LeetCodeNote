@@ -132,6 +132,45 @@ private:
 
 > :orange_circle:
 
+由n个城市节点构成树结构网络（无向无环图），每个城市都有一名代表，要在首都节点0开会。每个城市都有一辆固定座位数的车，代表们可共同乘坐，车在两个城市间行驶需要1升汽油。求最少需要的汽油数量
+
+### 方法
+
+- DFS，后序遍历，得到到达每个节点的人数，然后根据车载量分配汽车，到达下一节点重新计算即可
+- 每个节点有num个人，每辆车座位为seats，则车的个数为`(num + seats - 1) / seats`
+- 因为无环，且是双向边，用visited数组防止回头，也可以在dfs参数中记录上个节点防止回头
+
+```cpp
+class Solution {
+public:
+    long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
+        int n = roads.size() + 1;
+        vector<vector<int>> graph(n);
+        for (int i = 0; i < roads.size(); i++) {
+            graph[roads[i][0]].push_back(roads[i][1]);
+            graph[roads[i][1]].push_back(roads[i][0]);
+        }
+        visited = vector<bool>(n, false);
+        dfs(graph, 0, seats);
+        return res;
+    }
+
+private:
+    long long res; 
+    vector<bool> visited;
+    int dfs(vector<vector<int>>& graph, int node, int seats) {
+        if (visited[node]) return 0;
+        visited[node] = true;
+        int num = 1;
+        for (int v : graph[node]) {
+            num += dfs(graph, v, seats);
+        }
+        if (node != 0) res += (num + seats - 1) / seats;
+        return num;
+    }
+};
+```
+
 ## 2478. Number of Beautiful Partitions
 
 > :red_circle:
