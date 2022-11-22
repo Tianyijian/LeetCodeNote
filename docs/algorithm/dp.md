@@ -83,3 +83,30 @@ public:
     }
 };
 ```
+
+## 0279. Perfect Squares
+
+> :orange_circle:
+
+给正整数n，返回和为n的最少的完全平方数个数
+
+### 方法
+
+- 动态规划，完全背包问题。物品为[1, sqrt(n)]，背包容量为n。dp[j]: 和为j的最少的完全平方数个数。T: O(nsqrt(n)), S: O(n)
+
+```cpp
+class Solution {
+public:
+    int numSquares(int n) {
+        vector<int> dp(n + 1, INT_MAX);
+        dp[0] = 0;
+        for (int i = 1; i <= sqrt(n); i++) {
+            for (int j = i * i; j <= n; j++) {
+                dp[j] = min(dp[j], dp[j - i * i] + 1);
+            }
+        }
+        return dp[n];
+    }
+};
+```
+
