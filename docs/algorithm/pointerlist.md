@@ -84,6 +84,36 @@ public:
 };
 ```
 
+## 0086. Partition List
+
+> :orange_circle:
+
+### 方法
+
+## 0023. Merge k Sorted Lists
+
+> :red_circle: 
+
+### 方法
+
+## 0019. Remove Nth Node From End of List
+
+> :orange_circle:
+
+### 方法
+
+## 0876. Middle of the Linked List
+
+> :green_circle:
+
+### 方法
+
+## 0160. Intersection of Two Linked Lists
+
+> :green_circle:
+
+### 方法
+
 ## 0206. Reverse Linked List
 
 > :green_circle:
