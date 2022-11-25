@@ -70,3 +70,46 @@ public:
 };
 ```
 
+## 0084. Largest Rectangle in Histogram
+
+> :red_circle:
+
+## 0907. Sum of Subarray Minimums
+
+> :orange_circle:
+
+给一个整数数组，计算其所有的子数组的最小值的和。因为答案较大，返回答案除以 `10^9 + 7`的余数
+
+### 方法
+
+- 暴力搜索：两层循环得到所有子数组，然后得到每个的最小值，计算总和
+- 动态规划：存储`[i,j]`范围内的子串的最小值（MLE）。T: O(n^2), S: O(n^2)
+- 对于每个元素，找到左侧最近的比其小的元素，右侧最近的比其小的元素，该范围内的所有子数组的最小值均为该元素
+  - 下标为`[i, k, j]`，则该范围内包含元素k的子数组个数为`(k-i)*(j-k)`
+- 单调递增栈（从栈底到栈顶为递增）可方便找到两侧最近的更小的元素。T: O(n), S:O(n)
+  - 待加入栈的元素j小于等于栈顶元素k时，弹出栈顶元素k，则该元素的右侧最小为待加入元素j，左侧最小为此时的栈顶i（栈为空则-1）。注意为左开右闭，即`arr[i] < arr[k] <= arr[j]`，防止子数组重复计数
+  - 最后栈中剩余的元素均没有右侧更小，其右侧更小下标为数组个数。
+
+```cpp
+class Solution {
+public:
+    int sumSubarrayMins(vector<int>& arr) {
+        int n = arr.size();
+        long res = 0;
+        int MOD = 1e9 + 7;
+        stack<int> st;
+        for (int i = 0; i <= n; i++) {
+            while (!st.empty() && (i == n || arr[i] <= arr[st.top()])) {
+                int mid = st.top();
+                st.pop();
+                int prevSmall = st.empty()? -1 : st.top();
+                long count = (mid - prevSmall) * (i - mid) % MOD;
+                res += arr[mid] * count % MOD;
+                res %= MOD;
+            }
+            st.push(i);
+        }
+        return res;
+    }
+};
+```
