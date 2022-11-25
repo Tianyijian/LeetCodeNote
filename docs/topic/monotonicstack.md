@@ -74,6 +74,66 @@ public:
 
 > :red_circle:
 
+给定一个整数数组，代表柱状图中每个柱子的高度，其宽度都为1，找到柱状图中最大的矩形的面积
+
+### 方法
+
+- 单调递增栈（从栈底到栈顶），对每个柱子，找到左右两侧最近的更小的柱子位置，计算出构成矩阵的面积，保存最大值。T: O(n), S: O(n)
+- **栈顶和栈顶的下一个元素以及要入栈的三个元素组成了我们要求最大面积的高度和宽度**
+
+<!-- tabs:start -->
+
+####**First**
+
+```cpp
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int maxArea = 0;
+        stack<int> st;
+        for (int i = 0; i <= heights.size(); i++) {
+            while (!st.empty() && (i == heights.size() || heights[i] <= heights[st.top()])) {
+                int mid = st.top();
+                st.pop();
+                int prevSmall = st.empty()? -1 : st.top();
+                int area = (i - prevSmall - 1) * heights[mid];
+                maxArea = max(maxArea, area);
+            }
+            st.push(i);
+        }
+        return maxArea;
+    }
+};
+```
+
+####**Second**
+
+```cpp
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int maxArea = 0;
+        stack<int> st; 
+        heights.insert(heights.begin(), 0); // 数组头部加入元素0
+        heights.push_back(0); // 数组尾部加入元素0
+        st.push(0);
+        for (int i = 1; i < heights.size(); i++) {
+            while (heights[i] < heights[st.top()]) {
+                int mid = st.top();
+                st.pop();
+                int w = i - st.top() - 1;
+                int area = heights[mid] * w;
+                maxArea = max(maxArea, area);                    
+            }
+            st.push(i);
+        }
+        return maxArea;
+    }
+};
+```
+
+<!-- tabs:end -->
+
 ## 0907. Sum of Subarray Minimums
 
 > :orange_circle:
