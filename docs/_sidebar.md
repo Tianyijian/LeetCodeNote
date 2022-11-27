@@ -25,6 +25,7 @@
   * [Weekly Contest 319](contest/weekly319.md)
   * [Weekly Contest 320](contest/weekly320.md)
   * [Biweekly Contest 92](contest/biweekly92.md)
+  * [Weekly Contest 321](contest/weekly321.md)
 * 题解
   * [0000~1000](solutions/1000.md)
   * [1000~2000](solutions/2000.md)

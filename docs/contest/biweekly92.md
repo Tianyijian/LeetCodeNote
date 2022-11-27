@@ -1,4 +1,5 @@
 # Biweekly Contest 92
+> 20221126
 
 ## 2481. Minimum Cuts to Divide a Circle
 > :green_circle:
