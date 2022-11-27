@@ -93,3 +93,41 @@ public:
 ## 2484. Count Palindromic Subsequences
 
 > :red_circle:
+
+给一个由数字组成的字符串s，返回s中长度为5的回文子序列的数量。由于答案较大，结果对`10^9 + 7`取余
+
+### 方法一
+
+- 回溯寻找子序列，在DFS搜索时保证回文。（TLE）
+
+```cpp
+class Solution {
+public:
+    int countPalindromes(string s) {
+        if (s.size() < 5) return 0;
+        path = vector<char>(5);
+        backtracking(s, 0, 0);
+        return res;
+    }
+private:
+    int res = 0;
+    int MOD = 1e9 + 7;
+    vector<char> path;
+    void backtracking(string s, int start, int size) {
+        if (size == 5) {
+            res += 1;
+            if (res > MOD) res %= MOD;
+            return;
+        }
+        for (int i = start; i < s.size(); i++) {
+            if (s.size() - i < 5 - size) return;
+            if (size == 3 && s[i] != path[1]) continue;
+            else if (size == 4 && s[i] != path[0]) continue;
+            path[size] = s[i];
+            backtracking(s, i + 1, size + 1);
+        }
+    }
+};
+```
+
+### 方法二
