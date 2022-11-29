@@ -133,12 +133,46 @@ private:
         return node;
     }
 };
+```
 
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache* obj = new LRUCache(capacity);
- * int param_1 = obj->get(key);
- * obj->put(key,value);
- */
+## 0380. Insert Delete GetRandom O(1)
+
+> :orange_circle:
+
+实现`RandomizedSet`类，`bool insert(int val)`：值存在时返回false，不存在将其插入。`bool remove(int val)`：值不存在返回fasle，存在将其删除。`int getRandom()`：以相等概率随机返回一个值。每个函数都平均O(1)时间复杂度
+
+### 方法
+
+- 数组可以O(1)插入但查找为O(n)，删除元素需要先查找O(n)，删除后向左移动后续元素也需要O(n)，调用rand()函数返回随机值为O(1)
+- 额外采用map，记录每个值的下标，则查找为O(1)。删除时将待删除元素与数组最后一个元素交换，删除最后一个元素即可O(1)，无需移动
+- emplace_back() 相比push_back()函数，在用户自定义对象时，插入更高效
+
+```cpp
+class RandomizedSet {
+public:
+    RandomizedSet() {   
+    }
+    bool insert(int val) {
+        if (map.find(val) != map.end()) return false;
+        map[val] = nums.size();
+        nums.push_back(val); 
+        return true;
+    }
+    bool remove(int val) {
+        if (map.find(val) == map.end()) return false;
+        int valId = map[val];
+        nums[valId] = nums.back();
+        map[nums.back()] = valId;
+        nums.pop_back();
+        map.erase(val);
+        return true;
+    }
+    int getRandom() {
+        return nums[rand() % nums.size()];
+    }
+private:
+    vector<int> nums;
+    unordered_map<int, int> map;
+};
 ```
 
