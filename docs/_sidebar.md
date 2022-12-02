@@ -13,6 +13,7 @@
   * [二分查找](topic/binarysearch.md)
   * [排序](topic/sort.md)
   * [前缀和数组](topic/prefixsum.md)
+  * [前缀树](topic/trie.md)
   * [单调栈](topic/monotonicstack.md)
   * [区间问题](topic/intervals.md)
   * [nSum问题](topic/nsum.md)
