@@ -4,8 +4,86 @@
 ## 2490. Circular Sentence
 > :green_circle:
 
+句子由一连串单词组成，单词由大小写字母组成，单个空格分割。判断句子是否成环：一个单词的最后字符与下一个单词的首字符相同，最后一个单词的最后字符与第一个单词的首字符相同。
+
+### 方法
+
+- 判断句首与句尾字符是否相同。找到每个空格，判断前一个字符与后一个字符是否相等。T: O(n), S: O(1)
+
+```cpp
+class Solution {
+public:
+    bool isCircularSentence(string sentence) {
+        int n = sentence.size();
+        if (sentence[0] != sentence[n - 1]) return false;
+        for (int i = 0; i < n; i++) {
+            if (sentence[i] == ' ') {
+                if (sentence[i - 1] != sentence[i + 1]) return false;
+            }
+        }
+        return true;
+    }
+};
+```
+
 ## 2491. Divide Players Into Teams of Equal Skill
 > :orange_circle:
+
+长度为偶数n的整数数组，分成`n/2`个组，每组两个数，各组和相等。返回每组数乘积的和
+
+### 方法一
+
+- 计算全部和，得到每组的和Target。从左至右遍历，哈希表记录出现的元素。T: O(n), S: O(n)
+
+```cpp
+class Solution {
+public:
+    long long dividePlayers(vector<int>& skill) {
+        int n = skill.size();
+        int sum = 0;
+        for (int i : skill) sum += i;
+        if (sum % (n / 2) != 0) return -1;
+        int target = sum / (n / 2);
+        unordered_map<int, int> cnt;
+        long long res = 0;
+        for (int i : skill) {
+            if (cnt.find(target - i) != cnt.end()) {
+                res += i * (target - i);
+                cnt[target - i]--;
+                if (cnt[target - i] == 0) cnt.erase(target - i);
+            } else cnt[i]++;
+        }
+        if (cnt.size() != 0) return -1;
+        return res;
+    }
+};
+```
+
+### 方法二
+
+- 哈希表先统计所有的数，然后遍历哈希表。T: O(n), S: O(n)
+
+```cpp
+class Solution {
+public:
+    long long dividePlayers(vector<int>& skill) {
+        int n = skill.size();
+        int sum = accumulate(skill.begin(), skill.end(), 0);
+        if (sum % (n / 2) != 0) return -1;
+        int target = sum / (n / 2);
+
+        unordered_map<int, int> cnt;
+        for (int i : skill) cnt[i]++;
+
+        long long res = 0;
+        for (auto [k, v] : cnt) {
+            if (v != cnt[target - k]) return -1;
+            else res += (long long) k * (target- k) * v;
+        }
+        return res / 2;
+    }
+};
+```
 
 ## 2492. Minimum Score of a Path Between Two Cities
 > :orange_circle:
