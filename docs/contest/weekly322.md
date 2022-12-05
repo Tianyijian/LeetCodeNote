@@ -148,5 +148,20 @@ private:
 };
 ```
 
+### 拓展
+
+- c++ 函数`iota`，用于生成连续的数字序列
+
+```cpp
+void iota (ForwardIterator first, ForwardIterator last, T val);
+
+vector<int> nums(5);
+itoa(nums.begin(), nums.end(), 1); //vector<int>  1,2,3,4,5
+    
+int nums[5];
+itoa(nums, nums + 5, 0) // int[]  0,1,2,3,4
+```
+
 ## 2493. Divide Nodes Into the Maximum Number of Groups
+
 > :red_circle:
