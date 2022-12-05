@@ -25,9 +25,11 @@ public:
 
 > :orange_circle:
 
+给一个整数数组和整数k，返回子数组的数量，其中每个子数组的最小公倍数是k
+
 ### 方法
 
-- 暴力搜索每个子串，保存之前的LCM
+- 暴力搜索每个子串，保存之前的LCM。T: O(n^2), S: O(1)
 
 ```cpp
 class Solution {
@@ -95,6 +97,7 @@ int lcm(int a, int b) {
 
 <!-- tabs: start -->
 ####**First**
+
 ```cpp
 class Solution {
 public:

@@ -165,3 +165,14 @@ itoa(nums, nums + 5, 0) // int[]  0,1,2,3,4
 ## 2493. Divide Nodes Into the Maximum Number of Groups
 
 > :red_circle:
+
+有`n`个节点的无向图，编号`1`到`n`，边为 `edges[i] = [ai, bi]` ，图可能是不连通的。将图划分为`m`组（编号从`1 ` 开始）：每个节点只属于一组，每条边的两个节点的组编号相差`1`。返回最大的`m`，如果不能分组返回-1
+
+### 方法
+
+- 
+
+```cpp
+
+```
+

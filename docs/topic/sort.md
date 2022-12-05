@@ -181,7 +181,7 @@ sort(nums.begin(), nums.end(), greater<int>());
 sort(nums.begin(), nums.end(), mycomparison());
 set<int, greater<int>> s;
 priority_queue<int, vector<int>> que; // 大顶堆，优先弹出最大的元素
-priority_queue<int, vector<int>, greater<int>> que; //小顶堆，优先弹出最大的元素
+priority_queue<int, vector<int>, greater<int>> que; //小顶堆，优先弹出最小的元素
 priority_queue<int, vector<int>, mycomparison> que;
 ```
 

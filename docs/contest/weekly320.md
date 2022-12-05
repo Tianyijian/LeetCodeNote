@@ -34,9 +34,9 @@ public:
 
 ### 方法二
 
-- 哈希表m统计不同元素的个数，则元素a,b,c能形成的三元组个数为`m[a] * m[b] * m[c]`
+- 哈希表`m`统计不同元素的个数，则元素a,b,c能形成的三元组个数为`m[a] * m[b] * m[c]`
 - 设有`a~z`26个元素，则`n`在中间时，形成的三元组个数为`sum(m[a]...m[m]) * m[n] * sum(m[o]...m[z])`
-- 因此可以在遍历map的过程中，得到m[n]，并依次追踪left，right的和。T: O(n), S: O(n)
+- 因此可以在遍历map的过程中，得到`m[n]`，并依次追踪left，right的和。T: O(n), S: O(n)
 
 ```cpp
 class Solution {

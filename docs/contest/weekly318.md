@@ -101,6 +101,37 @@ public:
 
 >  :orange_circle:
 
+整数数组`costs`，`costs[i]`代表雇佣第`i`个员工的代价。两个整数 `k` 和 `candidates`，进行 `k` 轮雇佣，每一轮恰好雇佣一位工人。每一轮雇佣中，从最前面 `candidates` 和最后面 `candidates` 人中选出代价最小的一位工人（代价相同时选择下标更小的）。返回总代价
+
+### 方法
+
+- 维护两个小顶堆，双指针记录前后的位置，每次雇佣时先填充堆，然后选择两个堆顶的最小值
+
+```cpp
+class Solution {
+public:
+    long long totalCost(vector<int>& costs, int k, int candidates) {
+        priority_queue<int, vector<int>, greater<int>> p1, p2;
+        int i = 0, j = costs.size() - 1;
+        long long ans = 0;
+        while (k--) {
+            while (p1.size() < candidates && i <= j) p1.push(costs[i++]);
+            while (p2.size() < candidates && j >= i) p2.push(costs[j--]);
+            int a = p1.size() ? p1.top() : INT_MAX; 
+            int b = p2.size() ? p2.top() : INT_MAX;
+            if (a <= b) {
+                p1.pop();
+                ans += a;
+            } else {
+                p2.pop();
+                ans += b;
+            }
+        }
+        return ans;
+    }
+};
+```
+
 ## 2463. Minimum Total Distance Traveled
 
 > :red_circle:
