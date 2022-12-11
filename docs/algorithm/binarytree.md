@@ -255,24 +255,25 @@ public:
 ### 方法一
 
 *  递归
-	*  树形DP其实包含的有递归思想，不显式定义DP数组
-	*  到达一个节点时，选择如下：加左子树或不加，加右子树或不加，左右都加是否能打败最大值
-	*  返回能继续向上的值
+  *  树形DP其实包含的有递归思想，不显式定义DP数组
+  *  到达一个节点时，选择如下：加左子树或不加，加右子树或不加，左右都加是否能打败最大值
+  *  返回能继续向上的值
+
 ```cpp
 class Solution {
 public:
     int maxPathSum(TreeNode* root) {
-        int res = INT_MIN;
-        traversal(root, res);
+        dfs(root);
         return res;
     }
 private:
-    int traversal(TreeNode* root, int& res) {
-        if (root == NULL) return 0;
-        int left = max(traversal(root->left, res), 0);
-        int right = max(traversal(root->right, res), 0);
-        res = max(res, root->val + left + right);
-        return max(left, right) + root->val;;
+    int res = INT_MIN;
+    int dfs(TreeNode* node) {
+        if (node == NULL) return 0;
+        int left = max(dfs(node->left), 0);
+        int right = max(dfs(node->right), 0);
+        res = max(res, left + right + node->val);
+        return max(left, right) + node->val;
     }
 };
 ```
