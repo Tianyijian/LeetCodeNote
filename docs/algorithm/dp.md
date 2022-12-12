@@ -1,5 +1,52 @@
 # 动态规划
 
+## 0070. Climbing Stairs
+
+> :green_circle:
+
+爬楼梯需要n步，每次爬1或2步，共有多少种不同的爬完方式
+
+### 方法一
+
+- 简单动态规划，dp[i]代表爬i步的所有方式，则`dp[i] = dp[i-1] + dp[i-2]`。T: O(n), S: O(n)
+- 动态规划五部曲：dp数组及下标含义，递推公式，初始化，遍历顺序，举例验证
+* 简洁写法：动规一般依赖于前两个或前三个状态，因此可以将空间优化为O(1)
+
+```cpp
+class Solution {
+public:
+    int climbStairs(int n) {
+        vector<int> dp(n + 1);
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
+    }
+};
+```
+
+### 方法二
+
+- 动态规划，完全背包问题。楼梯数是背包，1步或2步是物品。可扩充到最多m步的情况。T: O(n), S: O(n)
+
+```cpp
+class Solution {
+public:
+    int climbStairs(int n) {
+        vector<int> dp(n + 1, 0);
+        dp[0] = 1;
+        for (int j = 0; j <= n; j++) {
+            for (int i = 1; i <= 2; i++) {
+                if (j >= i) dp[j] += dp[j - i];
+            }
+        }
+        return dp[n];
+    }
+};
+```
+
 ## 0053. Maximum Subarray
 
 > :orange_circle:
