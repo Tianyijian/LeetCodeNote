@@ -8,10 +8,26 @@
 
 ### 方法
 
-- 遍历每个字符串，若含有小写字母，返回字符串长度，否则转换为数字。记录最大值即可
+- 遍历每个字符串，若含有小写字母，返回字符串长度，否则转换为数字。记录最大值即可。T: O(n), S: O(1)
 
 ```cpp
-
+class Solution {
+public:
+    int maximumValue(vector<string>& strs) {
+        int ans = 0;
+        for (string s : strs) {
+            ans = max(ans, value(s));
+        }
+        return ans;
+    }
+private:
+    int value(string s) {
+        for (char c : s) {
+            if (c >= 'a' && c <= 'z') return s.size();
+        }
+        return stoi(s);
+    }
+};
 ```
 
 ## 2497. Maximum Star Sum of a Graph
@@ -22,8 +38,41 @@ n个节点的无向图，每个节点都有值。星图包含一个中心节点�
 
 ### 方法
 
-```cpp
+- 每个节点作为星图的中心节点，找到其相邻的k个值最大（正数）的节点即可计算星图和，记录最大星图和。
+- 只有正值的节点对星图和有贡献，因此构图时可以只添加正值的相邻节点。
+- 当每个节点的相邻正值节点数小于等于k时，全都加入星图和。大于k时，只需要K个最大的，可采用小顶堆维护。
 
+```cpp
+class Solution {
+public:
+    int maxStarSum(vector<int>& vals, vector<vector<int>>& edges, int k) {
+        int n = vals.size();
+        vector<vector<int>> graph(n);
+        for (auto e : edges) {
+            if (vals[e[1]] > 0) graph[e[0]].push_back(e[1]);
+            if (vals[e[0]] > 0) graph[e[1]].push_back(e[0]);
+        }
+        int ans = INT_MIN;
+        for (int i = 0; i < n; i++) {
+            int starSum = vals[i];
+            if (graph[i].size() <= k) {
+                for (int v : graph[i]) starSum += vals[v];
+            } else {
+                priority_queue<int, vector<int>, greater<int>> minHeap;
+                for (int v : graph[i]) {
+                    minHeap.push(vals[v]);
+                    if (minHeap.size() > k) minHeap.pop();
+                }
+                while (!minHeap.empty()) {
+                    starSum += minHeap.top();
+                    minHeap.pop();
+                }
+            }
+            ans = max(ans, starSum);
+        }
+        return ans;
+    }
+};
 ```
 
 ## 2498. Frog Jump II
@@ -34,8 +83,19 @@ n个节点的无向图，每个节点都有值。星图包含一个中心节点�
 
 ### 方法
 
-```cpp
+- 贪心思想，可以视为两个青蛙从起始跳到末尾，不能选择同一块石头。则必定两个青蛙间隔跳，跳跃长度最小。T: O(n), S: O(1)
 
+```cpp
+class Solution {
+public:
+    int maxJump(vector<int>& stones) {
+        int ans = stones[1];
+        for (int i = 2; i < stones.size(); i++) {
+            ans = max(ans, stones[i] - stones[i - 2]);
+        }
+        return ans;
+    }
+};
 ```
 
 ## 2499. Minimum Total Cost to Make Arrays Unequal
