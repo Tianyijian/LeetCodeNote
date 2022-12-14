@@ -157,3 +157,30 @@ public:
 };
 ```
 
+## 1143. Longest Common Subsequence
+
+>  :orange_circle:
+
+求两个字符串的最长公共子序列
+
+### 方法
+
+- 动态规划，子序列不连续，`dp[i][j]`代表以`text1[i]`与`text2[j]`结尾的两个字符串的最长公共子序列。T: O(mn), S: O(mn)
+
+```cpp
+class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int m = text1.size(), n = text2.size();
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (text1[i - 1] == text2[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;
+                else dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+        return dp[m][n];
+    }
+};
+```
+
