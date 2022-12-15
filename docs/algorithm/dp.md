@@ -184,3 +184,29 @@ public:
 };
 ```
 
+## 0198. House Robber
+
+> :orange_circle:
+
+打劫房屋，同时打劫两个相邻房屋时会自动报警。给每个房屋的金额，找到能打劫到的最大金额
+
+### 方法
+
+- 动态规划， dp[i] 考虑下标i-1以内的房屋，最多能打劫到的金额为dp[i]。T: O(n), S: O(n)
+- `dp[i] = max(dp[i-2] + nums[i-1], dp[i-1]); dp[0] = 0, dp[1] = nums[0]`
+
+```cpp
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n + 1);
+        dp[1] = nums[0];
+        for (int i = 2; i <= n; i++) {
+            dp[i] = max(dp[i - 1], dp[i - 2] + nums[i - 1]);
+        }
+        return dp[n];
+    }
+};
+```
+
