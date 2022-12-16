@@ -29,3 +29,34 @@ public:
 };
 ```
 
+## 2501. Longest Square Streak in an Array
+
+> :orange_circle:
+
+给整数数组，其子序列称做**方波**：长度至少为2，排序后后一个元素是前一个元素的平方。返回最长的**方波**的长度，没有则返回-1
+
+### 方法
+
+- 采用有序的哈希map记录元素及其作为方波结尾时的长度，从小到大遍历，如果一个数的平方数在map中，将其长度加上当前数的长度。T: O(nlogn), S: O(n)
+
+```cpp
+class Solution {
+public:
+    int longestSquareStreak(vector<int>& nums) {
+        map<int, int> map;
+        for (int num : nums) map[num] = 1;
+        int maxVal = sqrt(map.rbegin()->first);
+        int ans = 1;
+        for (auto [k, v] : map) {
+            if (k > maxVal) break;
+            int n = k * k;
+            if (map.find(n) != map.end()) {
+                map[n] += v;
+                ans = max(ans, map[n]);
+            }
+        }
+        return ans == 1 ? -1 : ans;
+    }
+};
+```
+
