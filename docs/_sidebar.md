@@ -1,17 +1,17 @@
 * 基础
   * [双指针链表](algorithm/pointerlist.md)
   * [双指针数组](algorithm/pointerarray.md)
-  * [滑动窗口](algorithm/slidingwindow.md)
   * [字符串](algorithm/string.md)
   * [哈希表](algorithm/hashtable.md)
+  * [栈与队列](algorithm/stackqueue.md)
   * [二叉树](algorithm/binarytree.md)
   * [动态规划](algorithm/dp.md)
   * [回溯算法](algorithm/backtrack.md)
   * [图](algorithm/graph.md)
-  * [设计数据结构](algorithm/design.md)
 * 专题
   * [二分查找](topic/binarysearch.md)
   * [排序](topic/sort.md)
+  * [滑动窗口](topic/slidingwindow.md)
   * [前缀和数组](topic/prefixsum.md)
   * [前缀树](topic/trie.md)
   * [单调栈](topic/monotonicstack.md)
@@ -20,6 +20,7 @@
   * [岛屿问题](topic/island.md)
   * [股票问题](topic/stock.md)
   * [并查集](topic/unionfind.md)
+  * [设计数据结构](topic/design.md)
 * 周赛
   * [Weekly Contest 318](contest/weekly318.md)
   * [Biweekly Contest 91](contest/biweekly91.md)
