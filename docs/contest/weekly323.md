@@ -37,7 +37,7 @@ public:
 
 ### 方法
 
-- 采用有序的哈希map记录元素及其作为方波结尾时的长度，从小到大遍历，如果一个数的平方数在map中，将其长度加上当前数的长度。T: O(nlogn), S: O(n)
+- 采用有序的哈希map记录元素及其作为方波结尾时的长度。从小到大遍历，如果一个数的平方数在map中，将其长度加上当前数的长度。T: O(nlogn), S: O(n)
 - 原数组中可能有重复元素，map可以去重。同时根据平方数可以尽早终止遍历
 
 ```cpp
@@ -69,25 +69,28 @@ public:
 
 ### 方法一
 
-- 使用有序map记录每个内存块的起始下标及终止下标（左开右闭，`[s, e) e-s=size`），使用无序map记录每个内存块的`mID`及对应的起始下标。
+- 使用有序map记录每个内存块的起始下标及终止下标（左开右闭，`[s, e) e-s=size`），使用无序map记录每个内存块的`mID`及对应的起始下标集合。
 - 设内存块个数为M，则分配O(MlogM)，释放O(1)，空间O(M)
 
 ```cpp
 class Allocator {
+private:
+    map<int, int> map; // All memory blocks: <startIndex, endIndex>, e.g. [s, e) e-s=size
+    unordered_map<int, vector<int>> idMap; // <mID, vector: startIndex>
 public:
     Allocator(int n) {
         map[n] = n;
     }
     
     int allocate(int size, int mID) {
-        int last = 0;
+        int start = 0;
         for (auto [k, v] : map) {
-            if (k - last >= size) {
-                map[last] = last + size;
-                idMap[mID].push_back(last);
-                return last;
+            if (k - start >= size) {
+                map[start] = start + size;
+                idMap[mID].push_back(start);
+                return start;
             } else {
-                last = v;
+                start = v;
             }
         }
         return -1;
@@ -103,9 +106,6 @@ public:
         idMap.erase(mID);
         return ans;
     }
-private:
-    map<int, int> map; // startIndex, endIndex
-    unordered_map<int, vector<int>> idMap; // mID, vector<int> startIndex
 };
 ```
 
@@ -154,3 +154,7 @@ private:
     vector<int> v;
 };
 ```
+
+## 2503. Maximum Number of Points From Grid Queries
+
+> :red_circle:
