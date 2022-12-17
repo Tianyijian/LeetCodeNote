@@ -90,6 +90,49 @@ private:
 
 <!-- tabs:end -->
 
+## 0695. Max Area of Island
+
+> :orange_circle:
+
+给定`mxn`二维网格，`0`代表海水，`1`代表陆地，返回面积最大的岛屿的面积
+
+### 方法
+
+- 遇到没有访问过的陆地，DFS遍历四周计算出岛屿的面积，记录最大的岛屿面积即可。T: (m*n), S: O(1)
+- 统计面积采用后序遍历的思想，直接淹没陆地可以省去visited数组
+
+```cpp
+class Solution {
+public:
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        int ans = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j]) {
+                    ans = max(ans, dfs(grid, i, j));
+                }
+            }
+        }
+        return ans;
+    }
+private:
+    int dir[5] = {0, 1, 0, -1, 0};
+    int dfs(vector<vector<int>>& grid, int row, int col) {
+        int m = grid.size(), n = grid[0].size();
+        if (row < 0 || row >= m || col < 0 || col >= n || grid[row][col] == 0) {
+            return 0;
+        }
+        grid[row][col] = 0;
+        int area = 1;
+        for (int i = 0; i < 4; i++) {
+            area += dfs(grid, row + dir[i], col + dir[i + 1]);
+        }
+        return area;
+    }
+};
+```
+
 ## 1254. Number of Closed Islands
 
 > :orange_circle:
