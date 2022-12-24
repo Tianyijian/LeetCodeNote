@@ -40,7 +40,33 @@ public:
 
 > :orange_circle:
 
+给正整数n，持续将n替换为质因数的和，返回得到的最小的n
+
 ### 方法
+
+- 遍历计算得到n的质因数的和，替换n，直至不能替换。
+
+```cpp
+class Solution {
+public:
+    int smallestValue(int n) {
+        while (true) {
+            int sum = 0;
+            for (int i = 2; i < n / 2; i++) {
+                if (n % i == 0) {
+                    sum += i;
+                    n = n / i;
+                    i -= 1;
+                }
+            }
+            if (sum == 0) break;
+            sum += n;
+            n = sum;
+        }
+        return n;
+    }
+};
+```
 
 ## 2508. Add Edges to Make Degrees of All Nodes Even
 
