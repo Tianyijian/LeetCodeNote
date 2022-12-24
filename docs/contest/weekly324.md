@@ -72,13 +72,60 @@ public:
 
 > :red_circle:
 
+n个节点的无向图，图可能不连通。添加最多两条边，判断是否能让图中每个节点的度为偶数
+
 ### 方法
+
+- 找出图中度为奇数的节点，这些节点数不能大于4，不能为奇数，因此只能是2或者4
+- 有2个奇数度的节点时，若不相连可直接相连，若相连可寻找第三个都不相连的节点
+- 有4个奇数度的节点时，由于最多添加两条边，只能是找到两组不相连的将其相连
+
+```cpp
+class Solution {
+public:
+    bool isPossible(int n, vector<vector<int>>& edges) {
+        map<pair<int, int>, bool> hasEdge;
+        vector<int> degree(n + 1);
+        for (auto& e : edges) {
+            degree[e[0]]++;
+            degree[e[1]]++;
+            hasEdge[{e[0], e[1]}] = 1;
+            hasEdge[{e[1], e[0]}] = 1;
+        }
+        vector<int> odd;
+        for (int i = 1; i <= n; i++) {
+            if (degree[i] % 2 != 0) {
+                odd.push_back(i);
+            }
+        }
+        if (odd.size() == 0) return true;
+        if (odd.size() > 4 || odd.size() % 2 != 0) return false;
+        if (odd.size() == 2) {
+            if (!hasEdge[{odd[0], odd[1]}]) return true;
+            else {
+                for (int i = 1; i <= n; i++) {
+                    if (i == odd[0] || i == odd[1]) continue;
+                    if (!hasEdge[{odd[0], i}] && !hasEdge[{odd[1], i}]) return true;
+                }
+                return false;
+            }
+        } else if (odd.size() == 4){
+            int a = odd[0], b = odd[1], c = odd[2], d = odd[3];
+            if (!hasEdge[{a, b}] && !hasEdge[{c, d}]) return true;
+            if (!hasEdge[{a, c}] && !hasEdge[{b, d}]) return true;
+            if (!hasEdge[{a, d}] && !hasEdge[{b, c}]) return true;
+            return false;
+        }
+        return false;
+    }
+};
+```
 
 ## 2509. Cycle Length Queries in a Tree
 
 > :red_circle:
 
-完全二叉树，添加一条边后形成的环的长度
+完全二叉树，有`2^n - 1`个节点。节点取值范围是`[1, 2^(n - 1) - 1]`，每个节点的左子节点：`2 * val`，右子节点：`2 * val + 1`。找到任意两个节点添加一条边后形成的环的长度
 
 ### 方法
 
