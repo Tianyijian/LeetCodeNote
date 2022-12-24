@@ -78,4 +78,28 @@ public:
 
 > :red_circle:
 
+完全二叉树，添加一条边后形成的环的长度
+
 ### 方法
+
+- 完全二叉树：每个节点的左子节点：`2 * val`，右子节点：`2 * val + 1`。因此父节点是 `val / 2`
+- 找到两个节点的最近公共祖先，记录长度，最终+1即为环的长度。对每个查询，T: O(loga + logb), S: O(1)
+
+```cpp
+class Solution {
+public:
+    vector<int> cycleLengthQueries(int n, vector<vector<int>>& queries) {
+        vector<int> ans(queries.size(), 1);
+        for (int i = 0; i < queries.size(); i++) {
+            int a = queries[i][0], b = queries[i][1];
+            while (a != b) {
+                if (a > b) a /= 2; 
+                else b /= 2;
+                ans[i]++;
+            }
+        }
+        return ans;
+    }
+};
+```
+
