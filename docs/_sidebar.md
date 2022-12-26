@@ -5,6 +5,7 @@
   * [哈希表](algorithm/hashtable.md)
   * [栈与队列](algorithm/stackqueue.md)
   * [二叉树](algorithm/binarytree.md)
+  * [贪心算法](algorithm/greedy.md)
   * [动态规划](algorithm/dp.md)
   * [回溯算法](algorithm/backtrack.md)
   * [图](algorithm/graph.md)
