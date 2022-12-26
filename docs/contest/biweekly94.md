@@ -39,7 +39,13 @@ public:
 ### 方法
 
 - 将积极和消极词语转化为哈希表便于查找，根据每个学生的评语计算得分，排序得到Top k
-- 注意如何从空格分割的单词串中取出单词
+- 注意如何从空格分割的单词串中取出单词：(1) `istringstream >> word`，(2)`s.substr(j, k - j); j = k + 1`
+- 写法一：采用小顶堆维护K个最大值，自定义比较类
+- 写法二：直接对vector排序，记录分数的负值及学生ID，默认升序即可
+
+<!-- tabs:start -->
+
+####**First**
 
 ```cpp
 class MyCmp {
@@ -79,6 +85,37 @@ public:
     }
 };
 ```
+
+####**Second**
+
+```cpp
+class Solution {
+public:
+    vector<int> topStudents(vector<string>& positive_feedback, vector<string>& negative_feedback, vector<string>& report, vector<int>& student_id, int k) {
+        unordered_set<string> pos(begin(positive_feedback), end(positive_feedback));
+        unordered_set<string> neg(begin(negative_feedback), end(negative_feedback));
+        vector<pair<int, int>> vec(report.size());
+        for (int i = 0; i < report.size(); i++) {
+            int point = 0;
+            istringstream ss(report[i]);
+            string w;
+            while (ss >> w) {
+                if (pos.count(w)) point += 3;
+                else if (neg.count(w)) point -= 1;
+            }
+            vec[i] = {-point, student_id[i]};
+        }
+        sort(vec.begin(), vec.end());
+        vector<int> ans(k);
+        for (int i = 0; i < k; i++) {
+            ans[i] = vec[i].second;
+        }
+        return ans;
+    }
+};
+```
+
+<!-- tabs:end -->
 
 ## 2513. Minimize the Maximum of Two Arrays
 
