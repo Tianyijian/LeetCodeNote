@@ -34,6 +34,7 @@
   * [Weekly Contest 323](contest/weekly323.md)
   * [Weekly Contest 324](contest/weekly324.md)
   * [Biweekly Contest 94](contest/biweekly94.md)
+  * [Weekly Contest 325](contest/weekly325.md)
 * 题解
   * [0000~1000](solutions/1000.md)
   * [1000~2000](solutions/2000.md)
