@@ -28,3 +28,26 @@ public:
 };
 ```
 
+## 2516. Take K of Each Character From Left and Right
+
+> :orange_circle:
+
+字符串s由小写字母`a, b, c`组成。每分钟可以带走s的最左侧字符或最右侧字符。返回每个字符至少带走k个的最少时间，不可能则返回-1
+
+### 方法
+
+## 2517. Maximum Tastiness of Candy Basket
+
+> :orange_circle:
+
+正整数数组price代表每个糖果的价格。商店组合k个糖果打包成礼盒，礼盒的甜蜜度是任两种糖果价格绝对差的最小值。返回礼盒的最大甜蜜度
+
+### 方法
+
+## 2518. Number of Great Partitions
+
+> :red_circle:
+
+给一个正整数数组和整数k，将数组分为两组，若每组的元素和大于等于k，则为好分区。返回不同的好分区数目，对`10^9 + 7`取余
+
+### 方法
