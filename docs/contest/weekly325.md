@@ -36,6 +36,31 @@ public:
 
 ### 方法
 
+- 滑动窗口，`[j, i]`之间维护不需要带走的窗口，该窗口最大时，带走的最少。T: O(n), S: O(1)
+
+```cpp
+class Solution {
+public:
+    int takeCharacters(string s, int k) {
+        int n = s.size(), cnt[3] = {0};
+        for (char& c : s) cnt[c - 'a']++;
+        if (cnt[0] < k || cnt[1] < k || cnt[2] < k) return -1;
+        
+        int i = 0, j = 0, ans = n;
+        while (i < n) {
+            cnt[s[i] - 'a']--;
+            while (cnt[s[i] - 'a'] < k) {
+                cnt[s[j] - 'a']++;
+                j++;
+            }
+            ans = min(ans, n - (i - j + 1));
+            i++;
+        }
+        return ans;
+    }
+};
+```
+
 ## 2517. Maximum Tastiness of Candy Basket
 
 > :orange_circle:
