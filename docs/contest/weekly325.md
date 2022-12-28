@@ -65,9 +65,38 @@ public:
 
 > :orange_circle:
 
-正整数数组price代表每个糖果的价格。商店组合k个糖果打包成礼盒，礼盒的甜蜜度是任两种糖果价格绝对差的最小值。返回礼盒的最大甜蜜度
+正整数数组代表每个糖果的价格。商店组合k个糖果打包成礼盒，礼盒的**甜蜜度**是礼盒中任两种糖果价格绝对差的最小值。返回礼盒的最大甜蜜度
 
 ### 方法
+
+- 排序，对甜蜜度进行二分搜索，统计每种甜蜜度是否有k个以上糖果。T: O(n logm), S: O(1)
+
+```cpp
+class Solution {
+public:
+    int maximumTastiness(vector<int>& price, int k) {
+        sort(price.begin(), price.end());
+        int n = price.size();
+        int l = 0, r = price[n - 1] - price[0];
+        int ans = 0;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            int cnt = 1;
+            for (int i = 1, j = 0; i < n; i++) {
+                if (price[i] - price[j] >= m) {
+                    cnt++;
+                    j = i;
+                }
+            }
+            if (cnt >= k) {
+                ans = m;
+                l = m + 1;
+            } else r = m - 1;
+        }
+        return ans; // return l - 1;
+    }
+};
+```
 
 ## 2518. Number of Great Partitions
 
