@@ -31,15 +31,13 @@ private:
     vector<vector<int>> res;
     vector<int> path;
     void traversal(vector<vector<int>>& graph, int node) {
-        if (node == graph.size() - 1) {
-            path.push_back(node);
-            res.push_back(path);
-            path.pop_back();
-            return;
-        }
         path.push_back(node);
-        for (int v : graph[node]) {
-            traversal(graph, v);
+        if (node == graph.size() - 1) {
+            res.push_back(path);
+        } else {
+            for (int v : graph[node]) {
+                traversal(graph, v);
+            }
         }
         path.pop_back();
     }
