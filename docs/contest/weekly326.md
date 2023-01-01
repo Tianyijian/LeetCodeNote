@@ -57,3 +57,18 @@ public:
 };
 ```
 
+## 2522. Partition String Into Substrings With Values at Most K
+
+> :orange_circle:
+
+给一个由数字组成的字符串，其划分称为好划分：每个数字只属于一个子串，每个子串的值小于等于k。返回好划分中最少的子串数目，没有好划分返回-1
+
+### 方法
+
+## 2523. Closest Prime Numbers in Range
+
+> :orange_circle:
+
+给两个正整数`left`和`right`，找到两个整数满足：`left <= nums1 < nums2 <= right `，都是质数，`nums2 - nums1`最小。返回`ans = [nums1, nums2]`，如果有多个返回`nums1`最小的，不存在则返回`[-1,-1]`
+
+### 方法
