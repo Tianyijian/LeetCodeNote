@@ -69,6 +69,6 @@ public:
 
 > :orange_circle:
 
-给两个正整数`left`和`right`，找到两个整数满足：`left <= nums1 < nums2 <= right `，都是质数，`nums2 - nums1`最小。返回`ans = [nums1, nums2]`，如果有多个返回`nums1`最小的，不存在则返回`[-1,-1]`
+给两个正整数`left`和`right`，找到两个整数满足：`left <= nums1 < nums2 <= right `，都是质数，`nums2 - nums1`最小。返回`ans = [nums1, nums2]`，如果有多个返回`nums1`最小的，不存在则返回`[-1,-1]`。`1 <= left <= right <= 10^6`
 
 ### 方法
