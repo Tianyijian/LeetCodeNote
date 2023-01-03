@@ -5,11 +5,11 @@
 
 > :green_circle:
 
-给一个整数`num`，返回能够整除`num`的`num`中的数字个数
+给一个整数`num`，返回能够整除`num`的`num`中的数字个数。`num`中不含0
 
-### 方法
+### 方法一
 
-- 取出整数中的每个数字，判断是否能整除该整数，计数
+- 通过除以10取出整数中的每个数字，判断是否能整除该整数，计数
 
 ```cpp
 class Solution {
@@ -27,6 +27,23 @@ public:
 };
 ```
 
+### 方法二
+
+- 将其转化为字符串，遍历取出每一位
+
+```cpp
+class Solution {
+public:
+    int countDigits(int num) {
+        int ans = 0;
+        for (char& c : to_string(num)) {
+            if (num % (c - '0') == 0) ans++;
+        }
+        return ans;
+    }
+};
+```
+
 ## 2521. Distinct Prime Factors of Product of Array
 
 > :orange_circle:
@@ -36,6 +53,7 @@ public:
 ### 方法
 
 - 直接计算所有元素乘积会溢出，找出数组中每个元素的质因数，使用集合对质因数去重，最后返回集合大小。
+- 找元素n的质因数时，从2开始到sqrt(n)结束
 
 ```cpp
 class Solution {
@@ -43,14 +61,17 @@ public:
     int distinctPrimeFactors(vector<int>& nums) {
         unordered_set<int> ans;
         for (int n : nums) {
-            for (int i = 2; i * i <= n; i++) {
+            if (n % 2 == 0) {
+                ans.insert(2);
+                while (n % 2 == 0) n /= 2;
+            }
+            for (int i = 3; i * i <= n; i += 2) {
                 if (n % i == 0) {
-                    n /= i;
                     ans.insert(i);
-                    i = i - 1;
+                    while (n % i == 0) n /= i;
                 }
             }
-            ans.insert(n);
+            if (n > 1) ans.insert(n);
         }
         return ans.size();
     }
