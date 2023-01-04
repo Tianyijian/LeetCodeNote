@@ -50,7 +50,7 @@ public:
 
 正整数数组，返回数组中所有元素乘积的**不同质因数**的个数。`1 <= nums.length <= 10^4; 2 <= nums[i] <= 1000`
 
-### 方法
+### 方法一
 
 - 直接计算所有元素乘积会溢出，找出数组中每个元素的质因数，使用集合对质因数去重，最后返回集合大小。
 - 找元素n的质因数时，从2开始到sqrt(n)结束
@@ -74,6 +74,47 @@ public:
             if (n > 1) ans.insert(n);
         }
         return ans.size();
+    }
+};
+```
+
+### 方法二
+
+- `nums[i]`最大为1000，可以先找出sqrt(1000)以内的质数，`{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31}`
+- Sieve of Eratosthenes：找出n以内的所有质数。从2开始，迭代标记每个质数的倍数，最终剩余的未标记数即为质数
+
+```cpp
+class Solution {
+public:
+    int distinctPrimeFactors(vector<int>& nums) {
+        vector<int> primes = sieveOfEratosthenes(sqrt(1000));
+        unordered_set<int> ans;
+        for (int n : nums) {
+            for (int p : primes) {
+                if (n % p == 0) {
+                    ans.insert(p);
+                    while (n % p == 0) n /= p;
+                }
+            }
+            if (n > 1) ans.insert(n);
+        }
+        return ans.size();
+    }
+private: 
+    vector<int> sieveOfEratosthenes(int n) { 	// T: O(n*log(log(n))), S: O(n)
+        vector<bool> prime(n + 1, 1);
+        for (int p = 2; p * p <= n; p++) {
+            if (prime[p]) {
+                for (int i = p * p; i <= n; i += p) {
+                    prime[i] = 0;
+                }
+            }
+        }
+        vector<int> ans;
+        for (int p = 2; p <= n; p++) {
+            if (prime[p]) ans.push_back(p);
+        }
+        return ans;
     }
 };
 ```
