@@ -80,14 +80,14 @@ public:
 
 ### 方法二
 
-- `nums[i]`最大为1000，可以先找出sqrt(1000)以内的质数，`{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31}`
+- `nums[i]`最大为1000，可以先找出sqrt(1000)以内的质数，作为因子。或者直接找出1000以内的质数，统计是因数的数量
 - Sieve of Eratosthenes：找出n以内的所有质数。从2开始，迭代标记每个质数的倍数，最终剩余的未标记数即为质数
 
 ```cpp
 class Solution {
 public:
     int distinctPrimeFactors(vector<int>& nums) {
-        vector<int> primes = sieveOfEratosthenes(sqrt(1000));
+        vector<int> primes = sieveOfEratosthenes(sqrt(1000)); // {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31}
         unordered_set<int> ans;
         for (int n : nums) {
             for (int p : primes) {
@@ -126,6 +126,10 @@ private:
 给一个由数字组成的字符串，其划分称为好划分：每个数字只属于一个子串，每个子串的值小于等于k。返回好划分中最少的子串数目，没有好划分返回-1
 
 ### 方法
+
+```cpp
+
+```
 
 ## 2523. Closest Prime Numbers in Range
 
