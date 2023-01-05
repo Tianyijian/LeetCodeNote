@@ -127,8 +127,25 @@ private:
 
 ### 方法
 
-```cpp
+- 贪心思想，在子串值小于等于k的前提下，每个子串尽可能的长，从而子串数目最少。T: O(n), S: O(1)
+- 不断记录当前的值，大于k时开始一个新划分。单独一位数就比k大时，不能划分返回-1
 
+```cpp
+class Solution {
+public:
+    int minimumPartition(string s, int k) {
+        long n = 0, ans = 1;
+        for (int i = 0; i < s.size(); i++) {
+            n = n * 10 + (s[i] - '0');
+            if (n > k) {
+                ans++;
+                n = s[i] - '0';
+            }
+            if (n > k) return -1;
+        }
+        return ans;
+    }
+};
 ```
 
 ## 2523. Closest Prime Numbers in Range
