@@ -155,3 +155,33 @@ public:
 给两个正整数`left`和`right`，找到两个整数满足：`left <= nums1 < nums2 <= right `，都是质数，`nums2 - nums1`最小。返回`ans = [nums1, nums2]`，如果有多个返回`nums1`最小的，不存在则返回`[-1,-1]`。`1 <= left <= right <= 10^6`
 
 ### 方法
+
+- Sieve of Eratosthenes方法找到[left, right]之间的所有质数，然后找出差值最小的结果
+
+```cpp
+class Solution {
+public:
+    vector<int> closestPrimes(int left, int right) {
+        vector<bool> prime(right + 1, 1);
+        prime[1] = 0;
+        for (int p = 2; p * p <= right; p++) {
+            if (prime[p]) {
+                for (int i = p * p; i <= right; i += p) prime[i] = 0;
+            }
+        }
+        int nums1 = 0, diff = INT_MAX;
+        vector<int> ans = {-1, -1};
+        for (int i = left; i <= right; i++) {
+            if (prime[i]) {
+                if (nums1 && diff > i - nums1) {
+                    diff = i - nums1;
+                    ans = {nums1, i};
+                }
+                nums1 = i;
+            }
+        }
+        return ans;
+    }
+};
+```
+
