@@ -45,6 +45,32 @@ long:  = long long, [Long_MIN, Long_MAX] = [LLong_MIN, LLong_MAX]
 
 > :orange_circle:
 
+整数数据流，检查是否最后k个数等于`value`。实现`DataStream`类，`DataStream(int value, int k)`：初始化类，`boolean consec(int num)`：数据流中添加num，如果最后k个数等于value返回true，否则返回false，数据不足k个时，返回false
+
+### 方法
+
+- 记录k和value，记录数据流中最新的等于value的数的数量
+- 注意私有变量不能再命名为value和k，没法初始化
+
+```cpp
+class DataStream {
+public:
+    DataStream(int value, int k) {
+        v = value;
+        k_val = k;
+        cnt = 0;
+    }
+    
+    bool consec(int num) {
+        if (num == v)  cnt++;
+        else cnt = 0;
+        return cnt >= k_val;
+    }
+private:
+    int v, k_val, cnt;
+};
+```
+
 ## 2527. Find Xor-Beauty of Array
 
 > :orange_circle:
