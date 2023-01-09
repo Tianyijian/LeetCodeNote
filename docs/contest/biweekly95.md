@@ -75,6 +75,24 @@ private:
 
 > :orange_circle:
 
+给一个整数数组，**有效值**是`((nums[i] | nums[j]) & nums[k])`，返回数组中所有三元组的**有效值**的异或结果
+
+### 方法
+
+- 暴力遍历所有三元组，计算有效值及异或结果，TLE
+- 进行公式简化
+
+```cpp
+class Solution {
+public:
+    int xorBeauty(vector<int>& nums) {
+        int ans = 0;
+        for (int& n : nums) ans ^= n;
+        return ans;
+    }
+};
+```
+
 ## 2528. Maximize the Minimum Powered City
 
 > :red_circle:
