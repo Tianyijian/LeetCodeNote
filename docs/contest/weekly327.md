@@ -54,6 +54,44 @@ public:
 
 > :orange_circle:
 
+给两个字符串，一次移动交换两个字符串某个位置的字符。判断是否能通过一次移动使得两个字符串的不同字符数相等
+
+### 方法
+
+- 利用数组哈希统计两个字符串的各个字符数量，以及不同字符数。遍历每个已有字符，判断移动后不同字符数是否相等。主要判断清楚移动后是否添加或者减少了原有的不同字符数。T: O(m+n+26*26), S: O(26)
+
+```cpp
+class Solution {
+public:
+    bool isItPossible(string word1, string word2) {
+        vector<int> hash1(26, 0), hash2(26, 0);
+        for (char& c : word1) hash1[c - 'a']++;
+        for (char& c : word2) hash2[c - 'a']++;
+        int cnt1 = 0, cnt2 = 0;
+        for (int i = 0; i < 26; i++) {
+            if (hash1[i]) cnt1++;
+            if (hash2[i]) cnt2++;
+        }
+        if (abs(cnt1 - cnt2) > 2) return false;
+        for (int i = 0; i < 26; i++) {
+            if (hash1[i] == 0) continue;
+            for (int j = 0; j < 26; j++) {
+                if (hash2[j] == 0) continue;
+                int a = cnt1, b = cnt2;
+                if (i != j) {
+                    if (hash1[j] == 0) a++;
+                    if (hash1[i] == 1) a--;
+                    if (hash2[j] == 1) b--;
+                    if (hash2[i] == 0) b++;
+                }
+                if (a == b) return true;
+            }
+        }
+        return false;
+    }
+};
+```
+
 ## 2532. Time to Cross a Bridge
 
 > :red_circle:
