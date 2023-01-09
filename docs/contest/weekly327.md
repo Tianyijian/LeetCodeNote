@@ -27,6 +27,29 @@ public:
 
 > :orange_circle:
 
+给一个整数数组，起始分为0。一次操作如下：选择一个下标i，分数加上`nums[i]`，将`nums[i]`替换为`ceil(nums[i] / 3)`。返回k次操作后最大可能的分数
+
+### 方法
+
+- 贪心思想，每次选择数组中最大的值加入分数即可。采用大顶堆动态维持。C++的堆在初始化时是线性时间O(n)，T: O(n+ klogn), S: O(n)
+
+```cpp
+class Solution {
+public:
+    long long maxKelements(vector<int>& nums, int k) {
+        long long ans = 0;
+        priority_queue<int> q(begin(nums), end(nums));
+        while (k--) {
+            int a = q.top();
+            ans += a;
+            q.pop();
+            q.push((a + 2) / 3);
+        }
+        return ans;
+    }
+};
+```
+
 ## 2531. Make Number of Distinct Characters Equal
 
 > :orange_circle:
