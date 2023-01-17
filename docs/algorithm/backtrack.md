@@ -11,7 +11,7 @@
 - 注意判断合法性：子串长度小于4，数值不大于255，不能“0”开头
 * 需要记录已经分割的段数，path可以使用数组也可以使用字符串
 
-<!-- tabs:start-->
+<!-- tabs:start -->
 ####**First**
 
 ```cpp
@@ -73,7 +73,7 @@ private:
 };
 ```
 
-<!-- tabs:end-->
+<!-- tabs:end -->
 
 ## 0039. Combination Sum
 
