@@ -1,4 +1,4 @@
-# Biweekly Contest 94
+# Biweekly Contest 95
 > 2023.01.07
 
 ## 2525. Categorize Box According to Criteria
