@@ -35,5 +35,34 @@ public:
 ## 2537. Count the Number of Good Subarrays
 > :orange_circle:
 
+给一个整数数组和整数k，返回**好子数组**的数量。**好子数组**`arr`至少有k对下标`(i, j)`满足`i < j and arr[i] < arr[j]`
+
+### 方法
+
+- 子数组是连续的，采用滑动窗口。记录窗口内每个值的数量，扩大或缩小窗口时增加或减去相等值的个数
+
+```cpp
+class Solution {
+public:
+    long long countGood(vector<int>& nums, int k) {
+        int n = nums.size();
+        long long ans = 0;
+        int cnt = 0;
+        unordered_map<int, int> map;
+        for (int i = 0, j = 0; j < n; j++) {
+            cnt += map[nums[j]];
+            map[nums[j]] += 1;
+            while (cnt >= k) {
+                ans += n - j;
+                map[nums[i]] -= 1;
+                cnt -= map[nums[i]];
+                i++;
+            }
+        }
+        return ans;
+    }
+};
+```
+
 ## 2538. Difference Between Maximum and Minimum Price Sum
 > :red_circle:
