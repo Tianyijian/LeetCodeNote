@@ -176,3 +176,17 @@ private:
 };
 ```
 
+## 0460. LFU Cache
+
+> :red_circle:
+
+设计数据结构实现Least Frequently Used (LFU) 缓存。缓存满时，移除使用频率最少(LFU)的，当使用频率相同时，移除最远使用(LRU)的。使用`use counter`维护缓存中每个key的使用次数，`get`和`put`操作都使用key。
+
+### 方法
+
+- 
+
+```cpp
+
+```
+
