@@ -50,6 +50,28 @@ public:
 
 > :orange_circle:
 
+给一个整数数组和两个值`lower`与`upper`，返回**公平对**的数量。**公平对**`(i, j)`满足`0 <= i < j < n,lower <= nums[i] + nums[j] <= upper `
+
+### 方法
+
+- 将数组排序，对于每个数，通过二分查找找到满足要求的下标范围。T: O(nlogn)
+
+```cpp
+class Solution {
+public:
+    long long countFairPairs(vector<int>& nums, int lower, int upper) {
+        long long ans = 0;
+        sort(nums.begin(), nums.end());
+        for (int i = 0; i < nums.size(); i++) {
+            auto high = upper_bound(nums.begin() + i + 1, nums.end(), upper - nums[i]);
+            auto low = lower_bound(nums.begin() + i + 1, nums.end(), lower - nums[i]);
+            ans += high - low;
+        }
+        return ans;
+    }
+};
+```
+
 ## 2564. Substring XOR Queries
 > :orange_circle:
 
