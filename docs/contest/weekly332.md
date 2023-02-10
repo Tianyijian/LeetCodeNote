@@ -54,7 +54,8 @@ public:
 
 ### 方法
 
-- 将数组排序，对于每个数，通过二分查找找到满足要求的下标范围。T: O(nlogn)
+- `nums[i] + nums[j] == nums[j] + nums[i]`，因此`i < j`可以视为`i != j`，但要避免既选择`i, j` 又选择 `j, i`。
+- 将数组排序，对于每个数`nums[i]`，通过二分查找在下标`[i+1, n]`中找到满足要求的下标范围`lower-nums[i] =< nums[j] <= upper-nums[i]`。T: O(nlogn), S: O(1)
 
 ```cpp
 class Solution {
