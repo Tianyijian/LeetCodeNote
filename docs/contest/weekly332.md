@@ -76,6 +76,38 @@ public:
 ## 2564. Substring XOR Queries
 > :orange_circle:
 
+给一个二进制字符串s，二维数组queries。对`queries[i] = [firsti, secondi]`，找到s中最短的子串，其数值为val，满足`val ^ firsti == secondi`，返回子串的端点`ans[i] = [lefti, righti]`，没有这样的子串返回`[-1, -1]`，有多个子串返回`lefti`最小的。`0 <= firsti, secondi <= 10^9`
+
+### 方法
+
+- `val == firsti ^ secondi`，`2^30 = 1073741824 > 10^9`，因此子串最多有三十位。
+- 将s中所有三十位以内的子串的值以及最好的端点记录到map中，对每个query直接查找即可。T: O(30n), S: O(30n)
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> substringXorQueries(string s, vector<vector<int>>& queries) {
+        unordered_map<int, vector<int>> map;
+        int n = s.size();
+        for (int i = 0; i < s.size(); i++) {
+            int val = 0;
+            for (int j = i; j < min(n, i + 30); j++) {
+                val = (val << 1) + (s[j] - '0');
+                if (!map.count(val)) map[val] = {i, j};
+                if (val == 0) break;
+            }
+        }
+        vector<vector<int>> ans;
+        for (auto& q : queries) {
+            int val = q[0] ^ q[1];
+            if (map.count(val)) ans.push_back(map[val]);
+            else ans.push_back({-1, -1});
+        }
+        return ans;
+    }
+};
+```
+
 ## 2565. Subsequence With the Minimum Score
 > :red_circle:
 
