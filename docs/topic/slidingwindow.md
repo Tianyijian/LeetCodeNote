@@ -121,9 +121,9 @@ public:
 
 给两个字符串s和p，找到s中p的所有字母异位词的下标
 
-### 方法
+### 方法一
 
-- 滑动窗口，字母异位词就是p的一种排列，相比于567题，只需要多记录每个满足条件的窗口的起始下标即可
+- 滑动窗口，字母异位词就是p的一种排列，相比于567题，只需要多记录每个满足条件的窗口的起始下标即可。T: O(L1+L2), S: O(1)
 
 ```cpp
 class Solution {
@@ -152,6 +152,33 @@ public:
             }
         }
         return res;
+    }
+};
+```
+
+### 方法二
+
+- 滑动窗口，使用哈希数组记录字母，vector可以直接比较内容。将窗口中的字母都装入，然后移动比较。T: O(L2), S: O(1) 
+
+```cpp
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> ans;
+        if (s.size() < p.size()) return ans;
+        vector<int> need(26, 0), have(26, 0);
+        int ps = p.size();
+        for (int i = 0; i < ps; i++) {
+            need[p[i] - 'a']++;
+            have[s[i] - 'a']++;
+        }
+        if (need == have) ans.push_back(0);
+        for (int i = ps; i < s.size(); i++) {
+            have[s[i] - 'a']++;
+            have[s[i - ps] - 'a']--;
+            if (need == have) ans.push_back(i - ps + 1);
+        }
+        return ans;
     }
 };
 ```
