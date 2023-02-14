@@ -42,6 +42,7 @@
   * [Biweekly Contest 96](contest/biweekly96.md)
   * [Weekly Contest 329](contest/weekly329.md)
 * 题解
-  * [0000~1000](solutions/1000.md)
+  * [0000~0500](solutions/0500.md)
+  * [0500~1000](solutions/1000.md)
   * [1000~2000](solutions/2000.md)
-  * [2000~2999](solutions/3000.md)
+  * [2000~3000](solutions/3000.md)
