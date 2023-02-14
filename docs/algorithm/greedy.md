@@ -24,6 +24,35 @@ public:
 };
 ```
 
+## 0045. Jump Game II
+
+> :orange_circle:
+
+给一个整数数组，数组的每个元素代表你在那个位置能跳跃的最大距离。初始时位于数组第一个位置，一定能跳到数组最后一个位置。返回所需的最小步数
+
+### 方法
+
+- 贪心算法，关注新增加的跳跃范围，而不在已覆盖的跳跃范围中增加跳跃次数。T: O(n), S: O(1)
+- 当前能跳跃的范围是[curBegin, curEnd]，下一次能跳跃的最远位置是curFar。不断遍历更新curFar，当遍历达到curEnd时，增加跳跃次数，更新curEnd为curFar。不用显式指定跳跃位置。
+
+```cpp
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int step = 0, n = nums.size();
+        int curEnd = 0, curFar = 0;
+        for (int i = 0; i < n - 1; i++) {
+            curFar = max(curFar, i + nums[i]);
+            if (i == curEnd) {
+                step++;
+                curEnd = curFar;
+            }
+        }
+        return step;
+    }
+};
+```
+
 ## 0134. Gas Station
 
 > :orange_circle:
