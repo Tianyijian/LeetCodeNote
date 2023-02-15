@@ -22,6 +22,11 @@
   * [股票问题](topic/stock.md)
   * [并查集](topic/unionfind.md)
   * [设计数据结构](topic/design.md)
+* 题解
+  * [0000~0500](solutions/0500.md)
+  * [0500~1000](solutions/1000.md)
+  * [1000~2000](solutions/2000.md)
+  * [2000~3000](solutions/3000.md)
 * 周赛
   * [Weekly Contest 318](contest/weekly318.md)
   * [Biweekly Contest 91](contest/biweekly91.md)
@@ -45,8 +50,3 @@
   * [Biweekly Contest 97](contest/biweekly97.md)
   * [Weekly Contest 331](contest/weekly331.md)
   * [Weekly Contest 332](contest/weekly332.md)
-* 题解
-  * [0000~0500](solutions/0500.md)
-  * [0500~1000](solutions/1000.md)
-  * [1000~2000](solutions/2000.md)
-  * [2000~3000](solutions/3000.md)
