@@ -7,7 +7,7 @@
 
 给一个正整数，每位数字都有正负号：最高位的数字符号为正，其它数字的符号和它相邻的符号相反。返回所有数字的和
 
-### 方法
+### 方法一
 
 - 将数字转为字符串，从高位到低位依次遍历，符号依次为正和负。T: O(logn), S: O(logn)，logn代表数字n的位数
 
@@ -22,6 +22,26 @@ public:
             sign *= -1;
         }
         return ans;
+    }
+};
+```
+
+### 方法二
+
+- 从右向左，依次取出位数进行加和。T: O(logn), S: O(1)
+- 设立符号位，从负号开始，数字为偶数位时首位为正，数字为奇数位时首位为负，因此最后再乘以符号即可。
+
+```cpp
+class Solution {
+public:
+    int alternateDigitSum(int n) {
+        int ans = 0, sign = 1;
+        while (n > 0) {
+            sign *= -1;
+            ans += sign * (n % 10);
+            n /= 10;
+        }
+        return sign * ans;
     }
 };
 ```
