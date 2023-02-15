@@ -50,6 +50,24 @@ public:
 
 > :orange_circle:
 
+m个学生n场考试，`mxn`矩阵代表学生的分数，其中分数都不同。将矩阵按照第K场考试从高分到低分排列
+
+### 方法
+
+- 利用sort函数，自定义排序接口即可
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+        sort(score.begin(), score.end(), [&](auto const &a, auto const &b) {
+            return a[k] > b[k];
+        });
+        return score;
+    }
+};
+```
+
 ## 2546. Apply Bitwise Operations to Make Strings Equal
 
 > :orange_circle:
