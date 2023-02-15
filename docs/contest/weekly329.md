@@ -72,6 +72,21 @@ public:
 
 > :orange_circle:
 
+给两个二进制字符串s和target，长度都为n。对s做任意次如下操作：选择不同下标`i, j`，替换`s[i] = s[i] OR s[j], s[j] = s[i] XOR s[j] `。判断是否可以将s变为target
+
+### 方法
+
+- 列举操作结果：`(0, 0) -> (0, 0); (1, 0) -> (1, 1); (0, 1) -> (1, 1); (1, 1) -> (1, 0)`
+- 结论：两个0保持不变，有1则可以将任何0变为1，有至少两个1则可以将任何1变为0。进而推出，除了全零字符串，其它全能变
+```cpp
+class Solution {
+public:
+    bool makeStringsEqual(string s, string target) {
+        return (s.find('1') != s.npos) == (target.find('1') != target.npos);
+    }
+};
+```
+
 ## 2547. Minimum Cost to Split an Array
 
 > :red_circle:
