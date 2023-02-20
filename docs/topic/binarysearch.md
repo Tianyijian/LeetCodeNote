@@ -1,5 +1,31 @@
 # 二分查找
 
+## 0035. Search Insert Position
+
+> :green_circle:
+
+给一个值不相同的有序数组，和整数target。如果有target，返回index，如果没有，找到它应该被插入的位置。要求O(logn)
+
+### 方法
+
+- 二分查找，找到直接返回，没找到返回第一个大于target的下标。T: O(logn), S: O(1)
+
+```cpp
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int left = 0, right = nums.size() - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > target) right = mid - 1;
+            else if (nums[mid] < target) left = mid + 1;
+            else return mid;
+        }
+        return left;
+    }
+};
+```
+
 ## 0240. Search a 2D Matrix II
 
 > :orange_circle:
