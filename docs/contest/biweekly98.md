@@ -59,6 +59,30 @@ public:
 
 > :orange_circle:
 
+整数数组。一个整数可以被表达，当其是数组的子序列的或值。返回最小的非零正整数，没有被该数组所表达。
+
+### 方法
+
+-  从1,2,3,4...依次向上找，第一个不能由数组子序列的或值得到，即为所求。
+- 对一个数(b1010...01)，与其他数的或值一定大于等于该数，与所有小于该数的或值，能得到的最大数为(b1111...11)
+- 因此只要数组中包含2的幂，(b1, b10, b100...)，数组能表达的数可以一直增大，其不能表达的数也一定是下一个幂
+- 可以将数组排序，从小到大寻找不能表达的2的幂。也可以将数组转换为集合，进行查找
+
+```cpp
+class Solution {
+public:
+    int minImpossibleOR(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int r = 1;
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == r) r *= 2;
+            else if (nums[i] > r) return r;
+        }
+        return r;
+    }
+};
+```
+
 ## 2569. Handling Sum Queries After Update
 
 > :red_circle:
