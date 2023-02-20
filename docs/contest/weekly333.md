@@ -39,7 +39,35 @@ public:
 
 > :orange_circle:
 
+给一个正整数n，可以添加或者减去一个2的幂。返回将其变为0的最少的操作次数。`1 <= n <= 10^5`
+
+### 方法
+
+- 找到距其最近的2的幂，其差值即为新的n。可以先把需要的2的幂存储下来，然后利用二分查找。
+
+```cpp
+class Solution {
+public:
+    int minOperations(int n) {
+        vector<int> nums;
+        int i = 0;
+        for (i = 1; i <= n; i *= 2) {
+            nums.push_back(i);
+        }
+        nums.push_back(i);
+        int ans = 0;
+        while (n != 0) {
+            int id = upper_bound(nums.begin(), nums.end(), n) - nums.begin();
+            n = min(nums[id] - n, n - nums[id - 1]);
+            ans++;
+        }
+        return ans;
+    }
+};
+```
+
 ## 2572. Count the Number of Square-Free Subsets
+
 > :orange_circle:
 
 ## 2573. Find the String with LCP
