@@ -37,6 +37,24 @@ public:
 
 > :orange_circle:
 
+整数数组，low是数组中任两个元素的最小差值，high是最大差值，两者和称为数组的score。可以最多改变数组的两个元素，返回最小的可能score。
+
+### 方法
+
+- 将数组排序，便于找到最大与最小值，high的值为数组两端的值的差值。改变数组两端的值，有重复元素可以使low为0。
+- 让high变小有三种情况：改变最小的两个，改变最大的两个，改变最小与最大各一个。找到三种情况的最小值即可。
+
+```cpp
+class Solution {
+public:
+    int minimizeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        return min({nums[n - 1] - nums[2], nums[n - 2] - nums[1], nums[n - 3] - nums[0]});
+    }
+};
+```
+
 ## 2568. Minimum Impossible OR
 
 > :orange_circle:
