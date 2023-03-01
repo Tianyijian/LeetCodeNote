@@ -9,8 +9,9 @@
 ### 方法一
 
 * 归并排序 
-	*  将数组递归拆分为单个元素，然后向上归并两个有序数组
-	*  归并时有in-place和out-place两种，前者O(n^2) TLE，后者O(nlogn)
+	*  分治思想，将数组递归拆分为单个元素，然后向上归并两个有序数组，将归并的结果重新存入原数组
+	*  归并时有in-place和out-place两种，前者O(n^2) TLE，后者最好最坏平均都是O(nlogn)。T: O(nlogn), S: O(n)
+
 ```cpp
 class Solution {
 public:
@@ -39,13 +40,42 @@ private:
     }
 };
 ```
+
 ### 方法二
+
+- 计数排序（CountingSort）
+  - 非比较型排序算法，适用于数值范围小的数组。统计每个元素的频率，按照元素值及频率放置每个元素
+  - 哈希表统计频率，找到最大最小值，放置每个元素。最好最坏平均都是O(n + k)，T: O(n + k), S: O(n), k是取值范围
+
+```cpp
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        countingSort(nums);
+        return nums;
+    }
+private:
+    void countingSort(vector<int>& nums) {
+        unordered_map<int, int> counts;
+        int minVal = *min_element(nums.begin(), nums.end());
+        int maxVal = *max_element(nums.begin(), nums.end());
+        for (int& val : nums) counts[val]++;
+        int index = 0;
+        for (int i = minVal; i <= maxVal; i++) {
+            int k = counts[i];
+            while (k--) nums[index++] = i;
+        }
+    }
+};
+```
+
+### 方法三
 
 *  快速排序
   *  分治思想，平均O(nlogn)，最坏O(n^2)
   *  挑出一个元素作为基准（pivot）；单趟排序，比基准小的在前，基准大的在后，称为分区操作（partition）；递归把基准前的子序列和基准后的子序列排序。
   * 基准的选择
-  	*  固定位置（最左或最右），随机位置，三数取中。
+  	*  固定位置（最左或最右），随机位置，三数取中
   	*  理想情况，选择的基准恰好将序列分为两个等长子序列
   	*  固定位置时，完全有序的数组以及重复数组，每趟排序后，pivot的值在边缘，每层递归只能固定一个数，时间O(n^2)
   	* 三数取中：取最左，最右，中间的三个元素，值在中间的元素作为基准
