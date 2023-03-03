@@ -35,6 +35,41 @@ public:
 };
 ```
 
+## 0057. Insert Interval
+
+> :orange_circle:
+
+给一个没有重叠的区间数组，区间按起始位置升序排列。向其中添加一个新区间，使新数组仍然没有重叠，且升序排列
+
+### 方法
+
+- 原区间数组已经升序排列，因此插入时共有三部分：前面的小区间，中间的合并区间，后面的大区间。T: O(n), S: O(1)
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>> ans;
+        int i = 0, n = intervals.size();
+        while (i < n && intervals[i][1] < newInterval[0]) {
+            ans.push_back(intervals[i++]);
+        }
+
+        while (i < n && intervals[i][0] <= newInterval[1]) {
+            newInterval[0] = min(newInterval[0], intervals[i][0]);
+            newInterval[1] = max(newInterval[1], intervals[i][1]);
+            i++;
+        }
+        ans.push_back(newInterval);
+        
+        while (i < n) {
+            ans.push_back(intervals[i++]);
+        }
+        return ans;
+    }
+};
+```
+
 ## 0452. Minimum Number of Arrows to Burst Balloons
 
 > :orange_circle:
