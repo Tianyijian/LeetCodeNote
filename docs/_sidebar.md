@@ -53,3 +53,4 @@
   * [Biweekly Contest 98](contest/biweekly98.md)
   * [Weekly Contest 333](contest/weekly333.md)
   * [Weekly Contest 334](contest/weekly334.md)
+  * [Biweekly Contest 99](contest/biweekly99.md)
