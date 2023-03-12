@@ -29,6 +29,27 @@ public:
 ## 2587. Rearrange Array to Maximize Prefix Score
 > :orange_circle:
 
+给一个整数数组，将其元素重排为任意顺序，使得数组的前缀和数组中，正数的个数最多。返回最多的正数数量
+
+### 方法
+
+- 将数组按照降序排列，前缀和的正数最多。依次计算前缀和，出现非正数停止
+
+```cpp
+class Solution {
+public:
+    int maxScore(vector<int>& nums) {
+        sort(nums.begin(), nums.end(), greater<int>());
+        long long pSum = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            pSum += (long long)nums[i];
+            if (pSum <= 0) return i;
+        }
+        return nums.size();
+    }
+};
+```
+
 
 ## 2588. Count the Number of Beautiful Subarrays
 > :orange_circle:
