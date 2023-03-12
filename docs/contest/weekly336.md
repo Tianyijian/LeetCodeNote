@@ -54,6 +54,18 @@ public:
 ## 2588. Count the Number of Beautiful Subarrays
 > :orange_circle:
 
+给一个整数数组，一次操作如下：选两个不同下标，选一个整数k，这两个数的二进制表示中第k位都为1，将这两个数减去$2^k$。**优美子数组**是应用操作任意次后，数组元素全为0。返回**优美子数组**的个数
+
+### 方法
+
+- 
+
+```cpp
+
+```
+
 
 ## 2589. Minimum Time to Complete All Tasks
 > :red_circle:
+
+计算机同时可进行无数任务。给一个任务列表，`tasks[i] = [starti, endi, durationi]`，代表任务完成时间为duration（可不连续），需要在[start, end]范围内完成。计算机需要完成任务时就可以打开，空闲时可以关闭。返回计算机完成所有任务应该被打开的最小时间
