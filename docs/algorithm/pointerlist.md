@@ -101,10 +101,9 @@ public:
 
 将k个升序链表合并为一个有序链表
 
-### 方法
+### 方法一
 
-- 方法一：链表的归并排序，两两合并。T: O(Nlogk) S: O(1)
-* 方法二：从K个节点中选择最小的，维护一个包含k个元素的小顶堆。T: O(Nlogk) S:O(k)
+- 链表的归并排序，两两合并。T: O(Nlogk) S: O(1)
 
 ```cpp
 class Solution {
@@ -141,6 +140,38 @@ private:
         p = dummy->next;
         delete dummy;
         return p;
+    }
+};
+```
+
+### 方法二
+
+- 从K个节点中选择最小的，维护一个包含k个元素的小顶堆。T: O(Nlogk) S:O(k)
+
+```cpp
+struct compare {
+    bool operator()(const ListNode* a, const ListNode* b) {
+        return a->val > b->val;
+    }
+};
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        priority_queue<ListNode*, vector<ListNode*>, compare> minHeap;
+        for (auto head : lists) {
+            if (head) minHeap.push(head);
+        }
+        ListNode* ans = new ListNode();
+        ListNode* root = ans;
+        while (!minHeap.empty()) {
+            root->next = minHeap.top();
+            minHeap.pop();
+            root = root->next;
+            if (root->next) {
+                minHeap.push(root->next);
+            }
+        }
+        return ans->next;
     }
 };
 ```
