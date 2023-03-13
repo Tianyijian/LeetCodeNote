@@ -212,6 +212,32 @@ public:
 };
 ```
 
+### 方法二
+
+- 递归法。递归函数参数及返回值，终止条件，单层递归逻辑
+
+```cpp
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        return isSymm(root->left, root->right);
+    }
+    
+    bool isSymm(TreeNode* leftNode, TreeNode* rightNode) {
+        if (leftNode && rightNode) {
+            if (leftNode->val != rightNode->val) return false;
+            if (!isSymm(leftNode->left, rightNode->right)) return false;
+            if (!isSymm(leftNode->right, rightNode->left)) return false;
+        } else if (!leftNode && !rightNode) {
+            return true;
+        } else {
+            return false;
+        }
+        return true;
+    }
+};
+```
+
 ## 0222. Count Complete Tree Nodes
 
 > :orange_circle:
