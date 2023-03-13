@@ -169,7 +169,48 @@ public:
 };
 ```
 
+## 0101. Symmetric Tree
 
+> :green_circle:
+
+判断二叉树是否是自己的镜像，即中心对称
+
+### 方法一
+
+- 迭代法，成对比较，添加时按照外侧和内侧的顺序，成对加入成对取出，因此采用栈也可以
+
+```cpp
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        queue<TreeNode*> que;
+        if (root != NULL) {
+            que.push(root->left);
+            que.push(root->right);
+        };
+        while (!que.empty()) {
+            TreeNode* leftNode = que.front();
+            que.pop();
+            TreeNode* rightNode = que.front();
+            que.pop();
+            if (leftNode && rightNode) {
+                if (leftNode->val != rightNode->val) {
+                    return false;
+                }
+                que.push(leftNode->left);
+                que.push(rightNode->right);
+                que.push(leftNode->right);
+                que.push(rightNode->left);                    
+            } else if (!leftNode && !rightNode) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+```
 
 ## 0222. Count Complete Tree Nodes
 
