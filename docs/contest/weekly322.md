@@ -114,7 +114,7 @@ int sum = accumulate(nums, nums + 3, 0) //计算int数组和
 
 ### 方法一
 
-- 并查集，构建城市`1`和`n`所在的连通分量，找到其中道路的最小值即可
+- 并查集，构建城市`1`和`n`所在的连通分量，找到其中道路的最小值即可。T: O(n + e), S: (n)
 
 ```cpp
 class Solution {
@@ -150,31 +150,29 @@ private:
 
 ### 方法二
 
-- DFS或BFS进行遍历，从1出发，遍历所有能走的路径，记录其中的最小值即可
+- DFS或BFS进行遍历，从1出发，遍历所有能走的路径，记录其中的最小值即可。T: O(n + e), S: (n + e)
 
 ```cpp
 class Solution {
 public:
     int minScore(int n, vector<vector<int>>& roads) {
-        vector<vector<vector<int>>> g(n + 1);
+        vector<vector<vector<int>>> adj(n + 1);
         for (auto& r : roads) {
-            g[r[0]].push_back({r[1], r[2]});
-            g[r[1]].push_back({r[0], r[2]});
+            adj[r[0]].push_back({r[1], r[2]});
+            adj[r[1]].push_back({r[0], r[2]});
         }
-        vis = vector<bool>(n + 1, false);
-        vis[1] = true;
-        dfs(g, 1);
+        vector<bool> vis(n + 1);
+        int ans = INT_MAX;
+        dfs(1, adj, vis, ans);
         return ans;
     }
 private:
-    int ans = INT_MAX;
-    vector<bool> vis;
-    void dfs(vector<vector<vector<int>>>& graph, int cur) {
-        for (auto& r : graph[cur]) {
+    void dfs(int cur, vector<vector<vector<int>>>& adj, vector<bool>& vis, int& ans) {
+        vis[cur] = true;
+        for (auto& r : adj[cur]) {
             ans = min(ans, r[1]);
             if (!vis[r[0]]) {
-                vis[r[0]] = true;
-                dfs(graph, r[0]);
+                dfs(r[0], adj, vis, ans);
             }
         }
     }
