@@ -112,7 +112,7 @@ int sum = accumulate(nums, nums + 3, 0) //计算int数组和
 
 有`n`个城市，从 `1` 到 `n` 编号，二维`roads`数组，`roads[i] = [ai, bi, distancei]`。城市构成的图不一定是连通的。找到城市 `1` 和城市 `n` 之间的所有路径的最小分数（路径中道路的最小距离）。路径可以多次包含同一道路，城市 `1` 和城市`n` 之间 **至少** 有一条路径
 
-### 方法
+### 方法一
 
 - 并查集，构建城市`1`和`n`所在的连通分量，找到其中道路的最小值即可
 
@@ -144,6 +144,39 @@ private:
     }
     bool same(int u, int v) {
         return find(u) == find(v);
+    }
+};
+```
+
+### 方法二
+
+- DFS或BFS进行遍历，从1出发，遍历所有能走的路径，记录其中的最小值即可
+
+```cpp
+class Solution {
+public:
+    int minScore(int n, vector<vector<int>>& roads) {
+        vector<vector<vector<int>>> g(n + 1);
+        for (auto& r : roads) {
+            g[r[0]].push_back({r[1], r[2]});
+            g[r[1]].push_back({r[0], r[2]});
+        }
+        vis = vector<bool>(n + 1, false);
+        vis[1] = true;
+        dfs(g, 1);
+        return ans;
+    }
+private:
+    int ans = INT_MAX;
+    vector<bool> vis;
+    void dfs(vector<vector<vector<int>>>& graph, int cur) {
+        for (auto& r : graph[cur]) {
+            ans = min(ans, r[1]);
+            if (!vis[r[0]]) {
+                vis[r[0]] = true;
+                dfs(graph, r[0]);
+            }
+        }
     }
 };
 ```
