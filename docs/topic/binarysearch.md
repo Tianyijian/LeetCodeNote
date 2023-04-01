@@ -84,3 +84,29 @@ public:
 };
 ```
 
+## 0704. Binary Search
+
+> :green_circle:
+
+给一个升序排序的整数数组，从中查找是否包含整数target，包含返回其下标，不包含返回-1。时间要求O(logn)
+
+### 方法
+
+- 二分查找
+
+```cpp
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int l = 0, r = nums.size() - 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            if (nums[m] < target) l = m + 1;
+            else if (nums[m] > target) r = m - 1;
+            else return m;
+        }
+        return -1;
+    }
+};
+```
+
