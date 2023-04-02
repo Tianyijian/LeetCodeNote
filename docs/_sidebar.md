@@ -58,3 +58,6 @@
   * [Weekly Contest 336](contest/weekly336.md)
   * [Biweekly Contest 100](contest/biweekly100.md)
   * [Weekly Contest 337](contest/weekly337.md)
+  * [Weekly Contest 338](contest/weekly338.md)
+  * [Biweekly Contest 101](contest/biweekly101.md)
+  * [Weekly Contest 339](contest/weekly339.md)
