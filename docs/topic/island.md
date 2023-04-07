@@ -133,6 +133,51 @@ private:
 };
 ```
 
+## 1020. Number of Enclaves
+
+> :orange_circle:
+
+给一个mxn的网格，0代表海水，1代表陆地。一次移动可以从陆地移向四周的陆地，或者移出网格边界。返回多次移动不能移出边界的陆地数量
+
+### 方法
+
+- 寻找不与边界相邻的陆地数量，DFS从边界上的陆地出发，相邻的陆地都淹没，剩下的即是不相邻的。T: O(mxn), S: O(mxn)
+
+```cpp
+class Solution {
+public:
+    int numEnclaves(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        for (int i = 0; i < m; i++) {
+            dfs(grid, i, 0);
+            dfs(grid, i, n - 1);
+        }
+        for (int j = 0; j < n; j++) {
+            dfs(grid, 0, j);
+            dfs(grid, m - 1, j);
+        }
+        int ans = 0;
+        for (int i = 1; i < m - 1; i++) {
+            for (int j = 1; j < n - 1; j++) {
+                if (grid[i][j]) ans++;
+            }
+        }
+        return ans;
+    }
+private:
+    void dfs(vector<vector<int>>& grid, int row, int col) {
+        int m = grid.size(), n = grid[0].size();
+        if (row < 0 || col < 0 || row >= m || col >= n) return;
+        if (grid[row][col] == 0) return;
+        grid[row][col] = 0;
+        int dir[5] = {1, 0, -1, 0, 1};
+        for (int i = 0; i < 4; i++) {
+            dfs(grid, row + dir[i], col + dir[i + 1]);
+        }
+    }
+};
+```
+
 ## 1254. Number of Closed Islands
 
 > :orange_circle:
